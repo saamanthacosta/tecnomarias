@@ -10,7 +10,5 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
     
-    <servlet>
-        <servlet-name></servlet-name>
-    </servlet>
+
 </web-app>

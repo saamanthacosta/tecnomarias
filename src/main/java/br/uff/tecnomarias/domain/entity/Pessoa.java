@@ -74,10 +74,11 @@ public abstract class Pessoa {
         Optional<Telefone> telSalvo = this.telefoneList.stream()
                 .filter(tel -> tel.getNumeroCompleto().equals(telefone.getNumeroCompleto()))
                 .findFirst();
-        if (telSalvo.isEmpty())
-            return false;
-        this.telefoneList.remove(telSalvo.get());
-        return true;
+        if (!telSalvo.isPresent()) {
+            this.telefoneList.remove(telSalvo.get());
+            return true;
+        }
+        return false;
     }
 
     public Endereco getEndereco() {
