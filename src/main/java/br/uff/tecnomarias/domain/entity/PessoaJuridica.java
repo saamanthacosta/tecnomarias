@@ -5,10 +5,12 @@ import br.uff.tecnomarias.domain.enums.PorteEmpresa;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class PessoaJuridica extends Pessoa {
+public class PessoaJuridica extends Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Column(unique = true)
     @NotNull(message = "CNPJ é obrigatório")

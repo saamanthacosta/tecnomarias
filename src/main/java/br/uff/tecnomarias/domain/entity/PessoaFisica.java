@@ -2,11 +2,13 @@ package br.uff.tecnomarias.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class PessoaFisica extends Pessoa {
+public class PessoaFisica extends Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Column(unique = true)
     @Size(min = 11, max = 11, message = "CPF deve ter 11 caracteres")

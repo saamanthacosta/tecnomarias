@@ -3,12 +3,14 @@ package br.uff.tecnomarias.domain.entity;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue

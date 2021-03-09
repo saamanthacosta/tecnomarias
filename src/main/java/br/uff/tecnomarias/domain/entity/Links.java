@@ -2,9 +2,11 @@ package br.uff.tecnomarias.domain.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Links {
+public class Links implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;

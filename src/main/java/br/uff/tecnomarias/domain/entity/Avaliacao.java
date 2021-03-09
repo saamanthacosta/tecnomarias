@@ -2,10 +2,11 @@ package br.uff.tecnomarias.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class Avaliacao {
+public class Avaliacao implements Serializable {
 
     @Id
     @GeneratedValue

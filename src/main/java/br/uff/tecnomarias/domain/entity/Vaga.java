@@ -2,6 +2,7 @@ package br.uff.tecnomarias.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @NamedQueries({
@@ -10,7 +11,8 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "Vaga.findByCargo", query = "SELECT v FROM Vaga v WHERE v.cargo LIKE :cargo"),
         @NamedQuery(name = "Vaga.findByValor",query = "SELECT v FROM Vaga v WHERE v.valor >= :min AND v.valor < :max")
 })
-public class Vaga {
+public class Vaga implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
