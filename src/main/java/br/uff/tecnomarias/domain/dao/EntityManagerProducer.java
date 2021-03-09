@@ -5,6 +5,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.ws.rs.Produces;
 
@@ -21,6 +22,8 @@ public class EntityManagerProducer {
 //    @Produces
 //    @RequestScoped
 //    public EntityManager getEntityManager() {
+//        if (emFactory == null)
+//            emFactory = Persistence.createEntityManagerFactory("tecnomariasPU");
 //        return emFactory.createEntityManager();
 //    }
 //
