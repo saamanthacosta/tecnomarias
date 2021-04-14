@@ -1,11 +1,20 @@
 export class Pessoa {
-    constructor(nome, email, listaTelefones) {
+    constructor(id, nome, email, listaTelefones) {
         if (this.constructor == Pessoa){
             throw new Error("Você não deveria instanciar um objeto do tipo Pessoa diretamente, pois essa é uma classe abstata");
         }
+        this._id = id;
         this._nome = nome;
         this._email = email;
         this._listaTelefones = listaTelefones;
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(id) {
+        this._id = id;
     }
 
     get nome() {
