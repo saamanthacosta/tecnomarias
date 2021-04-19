@@ -1,16 +1,15 @@
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Header from "./common/Header";
-import Rodape from "./common/Rodape";
+import Header from "./common/header";
+import Rodape from "./common/rodape";
 import Home from "./pages/Home";
 import { routes } from "../config/routes";
-import ConfirmarCadastro from "./common/modais/confirmarCadastro";
 
 const RotasComCabecalhoERodape = () => (
   <>
     <Header />
     <Switch>
-      <Route path={routes.HOME} exact component={ConfirmarCadastro} />
+      <Route path={routes.HOME} exact component={Home} />
     </Switch>
     <Rodape />
   </>
