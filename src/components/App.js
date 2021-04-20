@@ -4,13 +4,13 @@ import Header from "./common/Header";
 import Rodape from "./common/Rodape";
 import Home from "./pages/Home";
 import { routes } from "../config/routes";
-import ConfirmarCadastro from "./common/modais/confirmarCadastro";
+import ConfirmarRemocaoVaga from "./common/Modais/Confirmar/Existencia-Conta";
 
 const RotasComCabecalhoERodape = () => (
   <>
     <Header />
     <Switch>
-      <Route path={routes.HOME} exact component={ConfirmarCadastro} />
+      <Route path={routes.HOME} exact component={ConfirmarRemocaoVaga} />
     </Switch>
     <Rodape />
   </>
