@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import BotaoSimples from "../BotaoSimples";
+import PropTypes from 'prop-types';
 
 const styles = (theme) => ({
   root: {
@@ -98,4 +99,43 @@ export default function Modal({ modal }) {
       </DialogActions>
     </Dialog>
   </>;
+}
+
+Modal.propTypes = {
+  modal: PropTypes.shape({
+    titulo: PropTypes.shape({
+      nome: PropTypes.string.isRequired,
+      avatar: PropTypes.element
+    }),
+    conteudo: PropTypes.element,
+    botao: PropTypes.shape({
+      abrir: PropTypes.shape({
+        nome: PropTypes.string.isRequired,
+        cor: PropTypes.string
+      }),
+      acaoPrincipal: PropTypes.shape({
+        nome: PropTypes.string.isRequired,
+        cor: PropTypes.string,
+        funcao: PropTypes.func.isRequired
+      }),
+      cancelar: PropTypes.bool
+    })
+  })
+}
+
+Modal.defaultProps = {
+  modal: PropTypes.shape({
+    titulo: PropTypes.shape({
+      avatar: null
+    }),
+    botao: PropTypes.shape({
+      abrir: PropTypes.shape({
+        cor: "secondary",
+      }),
+      acaoPrincipal: PropTypes.shape({
+        cor: "primary",
+      }),
+      cancelar: true
+    })
+  })
 }
