@@ -7,7 +7,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import BotaoSimples from "../BotaoSimples";
+import BotaoSimples from "../Botao/Simples";
 import PropTypes from 'prop-types';
 
 const styles = (theme) => ({
