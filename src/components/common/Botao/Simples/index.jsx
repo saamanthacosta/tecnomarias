@@ -20,7 +20,7 @@ export default function BotaoSimples({ focus, onClick, cor, disabled, variant, n
 BotaoSimples.propTypes = {
   onClick: PropTypes.func.isRequired,
   autoFocus: PropTypes.bool,
-  color: PropTypes.string.isRequired,
+  cor: PropTypes.string,
   disabled: PropTypes.bool,
   variant: PropTypes.string
 
@@ -28,7 +28,8 @@ BotaoSimples.propTypes = {
 
 BotaoSimples.defaultProps = {
   autoFocus: true,
-  variant: "",
+  variant: null,
+  cor: "primary",
   disabled: false
 }
 
