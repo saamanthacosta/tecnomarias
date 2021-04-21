@@ -21,7 +21,7 @@ function App() {
   return <>
     <BrowserRouter>
       <Switch >
-        <Route render={() => <RotasComCabecalhoERodape component={RotasComCabecalhoERodape} />} />
+        <Route render={() => <RotasComCabecalhoERodape />} />
       </Switch>
     </BrowserRouter>
   </>;
