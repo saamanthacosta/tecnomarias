@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 export default function InputTexto({ type, onChange, label, required, disabled, readOnly, textoDeAjuda, erro, value, grande }) {
     return <>
         <TextField
+        margin="normal"
             type={type}
             label={label}
             required={required}
