@@ -1,8 +1,5 @@
 export const routes = {
-    HOME: '/',
-    CADASTRAR_PF: '/cadastrar/pf',
-    EDITAR_PF: '/editar/pf',
-    EXIBIR_PF: '/exibir/pf'
+    HOME: '/'
 }
 
 export const API = {
