@@ -10,15 +10,30 @@ export default function ExibirPF() {
 
     useEffect(() => {
         if (pf === null) {
+            var teste = {
+                nome: 'Testando o nome',
+                telefones: ["21 99999999", "21 991111111"],
+                links: {
+                    linkedin: "linkedin",
+                    github: "github"
+                }
+            };
+            setPf(teste)
         }
-    })
+    }, [pf])
 
     return <>
         <Container maxWidth="sm">
             <Formulario>
                 <>
-                    <DadosPessoais paginaDeExibir />
-                    <DadosLinks paginaDeExibir />
+                {
+                    pf !== null && 
+                    <>
+                    <DadosPessoais paginaDeExibir dados={pf} />
+                    <DadosLinks paginaDeExibir dados={pf.links} />
+                    </>
+                }
+                    
                     {/* <Box component="span" m={20}>
                     <BotaoSimples
                         customizado={true}

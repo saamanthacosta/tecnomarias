@@ -5,24 +5,32 @@ import InputTexto from "../../../../common/Input/Texto";
 import { Box } from "@material-ui/core";
 import { vaziaOuNull } from "../../../../../utils/vaziaOuNull";
 
-export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir }) {
+export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados }) {
     const [nome, setNome] = useState("");
     const [telefones, setTelefones] = useState({
         principal: '',
         secundario: '',
         outro: ''
-      });
+    });
 
-      useEffect(() => {
-          if (paginaDeExibir) {
-            setNome("Testando o Nome");
-            setTelefones({
-                principal: '21 99352984',
-                secundario: '',
-                outro: ''
-            })
-          }
-      })
+    useEffect(() => {
+        function transformarTelefones() {
+            var novosTelefones = telefones;
+            novosTelefones.principal = dados.telefones[0]
+            if (!vaziaOuNull(dados.telefones[1])) {
+                novosTelefones.secundario = dados.telefones[1]
+            }
+            if (!vaziaOuNull(dados.telefones[2])) {
+                novosTelefones.secundario = dados.telefones[2]
+            }
+            setTelefones(novosTelefones)
+        }
+        if (dados) {
+            setNome(dados.nome);
+            transformarTelefones();
+        }
+    }, [dados, telefones]);
+
 
     function proximo(event) {
         event.preventDefault();
@@ -32,7 +40,7 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir }) {
     const onChangeTelefone = (prop) => (event) => {
         setTelefones({ ...telefones, [prop]: event.target.value });
     }
-    
+
     return (
         <Formulario onSubmit={proximo}>
             <>
@@ -59,7 +67,7 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir }) {
                     label="Telefone Secundário"
                     textoDeAjuda={paginaDeExibir ? null : "Se tiver um telefone secundário, insira ele aqui"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(telefones.secundario)}
+                    disabled={paginaDeExibir && vaziaOuNull(telefones.secundario)}
                     value={telefones.secundario}
                     onChange={onChangeTelefone('secundario')}
                 />
@@ -68,31 +76,31 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir }) {
                     label="Outro Telefone"
                     textoDeAjuda={paginaDeExibir ? null : "Se tiver um outro telefone, insira ele aqui"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(telefones.secundario)}
+                    disabled={paginaDeExibir && vaziaOuNull(telefones.outro)}
                     value={telefones.outro}
                     onChange={onChangeTelefone('outro')}
                 />
                 {
-                    (!paginaDeExibir) && 
+                    (!paginaDeExibir) &&
                     <Box component="span" m={20}>
-                    <BotaoSimples
-                        customizado={true}
-                        variant="outlined"
-                        onClick={voltar}
-                        nome="Voltar"
-                        cor="primary"
-                    />
-                    <BotaoSimples
-                        customizado={true}
-                        type="submit"
-                        variant="contained"
-                        onClick={proximo}
-                        nome="Próximo"
-                        cor="primary"
-                    />
-                </Box>
+                        <BotaoSimples
+                            customizado={true}
+                            variant="outlined"
+                            onClick={voltar}
+                            nome="Voltar"
+                            cor="primary"
+                        />
+                        <BotaoSimples
+                            customizado={true}
+                            type="submit"
+                            variant="contained"
+                            onClick={proximo}
+                            nome="Próximo"
+                            cor="primary"
+                        />
+                    </Box>
                 }
-                
+
             </>
         </Formulario>
     );

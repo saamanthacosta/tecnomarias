@@ -5,26 +5,19 @@ import InputTexto from "../../../../common/Input/Texto";
 import { Box } from "@material-ui/core";
 import { vaziaOuNull } from "../../../../../utils/vaziaOuNull";
 
-export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir }) {
+export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) {
     const [links, setLinks] = useState({
         facebook: '',
-        twitter: '',
         github: '',
         portfolio: '',
         linkedin: '',
     });
 
     useEffect(() => {
-        if (paginaDeExibir) {
-          setLinks({
-            facebook: 'fb',
-            twitter: 'tt',
-            github: '',
-            portfolio: '',
-            linkedin: '',
-          })
+        if (dados) {
+          setLinks(dados.links)
         }
-    })
+    }, [dados])
 
     function proximo(event) {
         event.preventDefault();
@@ -43,25 +36,16 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir }) {
                     label="Facebook"
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu Facebook"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(links.facebook)}
+                    disabled={paginaDeExibir && vaziaOuNull(links.facebook)}
                     value={links.facebook}
                     onChange={onChangeLink('facebook')}
-                />
-                <InputTexto
-                    type="text"
-                    label="Twitter"
-                    textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu Twitter"}
-                    readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(links.twitter)}
-                    value={links.twitter}
-                    onChange={onChangeLink('twitter')}
                 />
                 <InputTexto
                     type="text"
                     label="LinkedIN"
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu LinkedIN"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(links.linkedin)}
+                    disabled={paginaDeExibir && vaziaOuNull(links.linkedin)}
                     value={links.linkedin}
                     onChange={onChangeLink('linkedin')}
                 />
@@ -70,7 +54,7 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir }) {
                     label="Portfólio"
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu portfólio"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(links.portfolio)}
+                    disabled={paginaDeExibir && vaziaOuNull(links.portfolio)}
                     value={links.portfolio}
                     onChange={onChangeLink('portfolio')}
                 />
@@ -79,7 +63,7 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir }) {
                     label="GitHub"
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu GitHub"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={vaziaOuNull(links.github)}
+                    disabled={paginaDeExibir && vaziaOuNull(links.github)}
                     value={links.github}
                     onChange={onChangeLink('github')}
                 />
