@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 var API = axios.create({
-    baseURL: "http://localhost:4000/",
+    baseURL: "http://tecnomarias.herokuapp.com/api/v1/",
     headers: {
         'Content-Type': 'application/json',
     }

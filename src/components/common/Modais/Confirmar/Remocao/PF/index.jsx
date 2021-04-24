@@ -2,8 +2,9 @@ import React from 'react';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Modal from '../../..';
+import PessoaFisicaService from '../../../../../../services/PessoaFisicaService';
 
-export default function ConfirmarRemoçãoPF() {
+export default function ConfirmarRemoçãoPF({ id }) {
 
   const conteudoModal = <>
     <DialogContentText id="alert-dialog-description">
@@ -19,8 +20,8 @@ export default function ConfirmarRemoçãoPF() {
     conteudo: conteudoModal,
     botao: {
       abrir: {
-        nome: 'Excluir conta',
-        cor: 'primary'
+        nome: 'Excluir',
+        cor: 'secondary'
       },
       acaoPrincipal: {
         nome: 'Confirmar',
@@ -32,6 +33,15 @@ export default function ConfirmarRemoçãoPF() {
   }
 
   function confirmar() {
+    PessoaFisicaService.remover(id).then(
+      resposta => {
+        console.log('uhu')
+      }
+    ).catch(
+      erro => {
+        console.log(':(')
+      }
+    );
   }
 
   return <>

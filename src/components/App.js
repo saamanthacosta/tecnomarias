@@ -9,15 +9,20 @@ import CadastrarPF from "./pages/PessoaFisica/Cadastrar";
 import EditarPF from "./pages/PessoaFisica/Editar";
 import ExibirPF from "./pages/PessoaFisica/Exibir";
 
+import ValidacoesCadastro from '../contexts/ValidacoesCadastro';
+import { validarEmail, validarNome, validarSenha } from '../utils/validadores'
 
 const RotasComCabecalhoERodape = () => (
   <>
     <Header />
     <Switch>
       <Route path={routes.HOME} exact component={ConfirmarRemocaoVaga} />
-      <Route path={routes.CADASTRAR_PF} exact component={CadastrarPF} />
-      <Route path={routes.EDITAR_PF} exact component={EditarPF} />
-      <Route path={routes.EXIBIR_PF} exact component={ExibirPF} />
+      <Route path={routes.EXIBIR_PF + ':id'} component={ExibirPF} />
+      <ValidacoesCadastro.Provider
+        value={{ senha: validarSenha, nome: validarNome, email: validarEmail }} >
+        <Route path={routes.CADASTRAR_PF} component={CadastrarPF} />
+        <Route path={routes.EDITAR_PF + ':id'} component={EditarPF} />
+      </ValidacoesCadastro.Provider>
     </Switch>
     <Rodape />
   </>

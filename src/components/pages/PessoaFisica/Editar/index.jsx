@@ -4,15 +4,19 @@ import DadosUsuario from '../common/DadosUsuario';
 import DadosPessoais from '../common/DadosPessoais';
 import DadosLinks from '../common/DadosLinks';
 import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
+import { useParams } from 'react-router';
+import PessoaFisicaService from '../../../../services/PessoaFisicaService';
+import PessoaFisica from '../../../../models/entities/PessoaFisica';
+import { converterPf } from '../../../../utils/conversorObj';
 
 export default function EditarPF() {
 
+    const { id } = useParams()
     const [etapaAtual, setEtapaAtual] = useState(0);
-    const [dadosColetados, setDados] = useState({});
     const [pf, setPf] = useState(null);
 
     const formularios = [
-        <DadosUsuario aoEnviar={coletarDados} />,
+        <DadosUsuario aoEnviar={coletarDados} dados={pf} />,
         <DadosPessoais aoEnviar={coletarDados} voltar={voltar} dados={pf} />,
         <DadosLinks aoEnviar={coletarDados} voltar={voltar} dados={pf} />,
         <Typography variant="h5">Obrigado pelo Cadastro!</Typography>,
@@ -20,23 +24,29 @@ export default function EditarPF() {
 
     useEffect(() => {
         if (pf === null) {
-            var teste = {
-                nome: 'Testando o nome',
-                telefones: ["21 99999999", "21 991111111"],
-                links: {
-                    linkedin: "linkedin",
-                    github: "github"
+            PessoaFisicaService.buscar(id).then(
+                resposta => {
+                    let pessoaFisica = new PessoaFisica(resposta.id, resposta.nome, resposta.email, resposta.telefoneList, resposta.links)
+                    setPf(pessoaFisica)
                 }
-            };
-            setPf(teste)
+            )
         }
         if (etapaAtual === formularios.length - 1) {
-            console.log(dadosColetados);
+            var pessoaFisica =  converterPf(pf);
+            PessoaFisicaService.alterar(pessoaFisica).then(
+                resposta => {
+                    console.log(resposta);
+                }
+            ).catch(
+                erro => {
+                    console.log(erro);
+                }
+            )
         }
-    }, [pf, dadosColetados, etapaAtual, formularios.length]);
+    }, [pf, etapaAtual, formularios.length, id]);
 
     function coletarDados(dados) {
-        setDados({ ...dadosColetados, ...dados });
+        setPf({ ...pf, ...dados });
         proximo();
     }
 

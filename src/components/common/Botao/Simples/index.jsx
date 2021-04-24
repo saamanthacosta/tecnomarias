@@ -41,7 +41,7 @@ BotaoSimples.propTypes = {
 BotaoSimples.defaultProps = {
   autoFocus: true,
   variant: null,
-  cor: "primary",
+  cor: "",
   disabled: false,
   type: "button"
 }

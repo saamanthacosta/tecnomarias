@@ -2,10 +2,12 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
-export default function InputTexto({ type, onChange, label, required, disabled, readOnly, textoDeAjuda, erro, value, grande }) {
+export default function InputTexto({ type, name, onChange, onBlur, label, required, disabled, readOnly, textoDeAjuda, erro, value, grande }) {
     return <>
         <TextField
-        margin="normal"
+            onBlur={onBlur}
+            margin="normal"
+            name={name}
             type={type}
             label={label}
             required={required}

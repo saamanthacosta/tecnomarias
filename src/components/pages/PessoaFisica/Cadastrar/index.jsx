@@ -4,6 +4,8 @@ import DadosUsuario from '../common/DadosUsuario';
 import DadosPessoais from '../common/DadosPessoais';
 import DadosLinks from '../common/DadosLinks';
 import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
+import { converterPf } from '../../../../utils/conversorObj';
+import PessoaFisicaService from '../../../../services/PessoaFisicaService';
 
 export default function CadastrarPF() {
 
@@ -12,7 +14,16 @@ export default function CadastrarPF() {
 
     useEffect(() => {
         if (etapaAtual === formularios.length - 1) {
-            console.log(dadosColetados);
+            var pessoaFisica = converterPf(dadosColetados);
+            PessoaFisicaService.criar(pessoaFisica).then(
+                resposta => {
+                    console.log(resposta);
+                }
+            ).catch(
+                erro => {
+                    console.log(erro);
+                }
+            )
         }
     });
 

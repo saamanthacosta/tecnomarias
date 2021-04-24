@@ -8,7 +8,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { FormControl, FormHelperText } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-export default function InputSenha({ id, value, onChange, grande, textoDeAjuda, erro, label }) {
+export default function InputSenha({ id, value, onChange, grande, textoDeAjuda, erro, label, onBlur, name }) {
     const [showPassword, setShowPassword] = React.useState(false);
 
     return <>
@@ -16,9 +16,11 @@ export default function InputSenha({ id, value, onChange, grande, textoDeAjuda, 
             <InputLabel htmlFor={id}>{label}</InputLabel>
             <Input
                 id={id}
+                name={name}
                 type={showPassword ? 'text' : 'password'}
                 value={value}
                 onChange={onChange}
+                onBlur={onBlur}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
