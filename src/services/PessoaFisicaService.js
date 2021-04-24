@@ -8,16 +8,19 @@ class PessoaFisicaService {
     }
 
     async buscar(id) {
-        return await Request.get(API.PESSOA_FISICA + `/${id}`);
+        var resposta = await Request.get(API.PESSOA_FISICA + `/${id}`);
+        return resposta.data;
     }
 
-    // async alterar(pessoaJuridica) {
-    //     return await Request.put(API.PESSOA_JURIDICA + `/${pessoaJuridica.id}`, pessoaJuridica);
-    // }
+    async alterar(pessoaFisica) {
+        var resposta = await Request.put(API.PESSOA_FISICA + `/${pessoaFisica.id}`, pessoaFisica);
+        return resposta;
+    }
 
-    // async remover(id) {
-    //     return await Request.delete(API.PESSOA_JURIDICA + `/${id}`);
-    // }
+    async remover(id) {
+        var resposta = await Request.delete(API.PESSOA_FISICA + `/${id}`);
+        return resposta;
+    }
 }
 
 export default new PessoaFisicaService();

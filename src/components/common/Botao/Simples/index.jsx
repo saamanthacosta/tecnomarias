@@ -1,11 +1,22 @@
 import React from 'react'
-import { Button } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
 
-export default function BotaoSimples({ focus, onClick, cor, disabled, variant, nome }) {
+const useStyles = makeStyles((theme) => ({
+  espacamento: {
+    margin: '20px 10px'
+  }
+}));
+
+export default function BotaoSimples({ focus, onClick, cor, disabled, variant, nome, type, customizado }) {
+
+  const classes = useStyles();
+
   return <>
     <Button
+      className={classes.espacamento}
+      type={type}
       autoFocus={focus}
       onClick={onClick}
       color={cor}
@@ -22,14 +33,16 @@ BotaoSimples.propTypes = {
   autoFocus: PropTypes.bool,
   cor: PropTypes.string,
   disabled: PropTypes.bool,
-  variant: PropTypes.string
+  variant: PropTypes.string,
+  type: PropTypes.string
 
 }
 
 BotaoSimples.defaultProps = {
   autoFocus: true,
   variant: null,
-  cor: "primary",
-  disabled: false
+  cor: "",
+  disabled: false,
+  type: "button"
 }
 

@@ -63,7 +63,7 @@ export default function Modal({ modal }) {
 
   return <>
     <BotaoSimples
-      variant="outlined"
+      variant="contained"
       nome={modal.botao.abrir.nome}
       onClick={abrir}
       cor={modal.botao.abrir.cor}
