@@ -2,13 +2,13 @@ import { Box, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router';
 import PessoaFisicaService from '../../../../services/PessoaFisicaService';
-import PessoaFisica from '../../../../models/entities/PessoaFisica';
 import DadosLinks from '../common/DadosLinks';
 import DadosPessoais from '../common/DadosPessoais';
 import InputTexto from '../../../common/Input/Texto';
 import { routes } from '../../../../config/routes';
 import ConfirmarRemoçãoPF from '../../../common/Modais/Confirmar/Remocao/PF';
 import BotaoSimples from '../../../common/Botao/Simples';
+import PessoaFisica from '../../../../models/entities/PessoaFisica';
 
 export default function ExibirPF() {
 
@@ -38,40 +38,36 @@ export default function ExibirPF() {
 
     return <>
         <Container maxWidth="sm">
-            <form>
+            {
+                pf !== null &&
                 <>
-                    {
-                        pf !== null &&
-                        <>
-                            <InputTexto
-                                type="email"
-                                label="E-mail"
-                                name="email"
-                                value={pf.email}
-                                readOnly={true}
-                            />
-                            <DadosPessoais paginaDeExibir dados={pf} />
-                            <DadosLinks paginaDeExibir dados={pf} />
-                            <Box component="span" m={15}>
-                                <BotaoSimples
-                                    customizado={true}
-                                    variant="outlined"
-                                    onClick={voltar}
-                                    nome="Voltar"
-                                />
-                                <BotaoSimples
-                                    customizado={true}
-                                    variant="contained"
-                                    onClick={editar}
-                                    nome="Editar"
-                                    cor="primary"
-                                />
-                                <ConfirmarRemoçãoPF id={id} />
-                            </Box>
-                        </>
-                    }
+                    <InputTexto
+                        type="email"
+                        label="E-mail"
+                        name="email"
+                        value={pf.email}
+                        readOnly={true}
+                    />
+                    <DadosPessoais paginaDeExibir dados={pf} />
+                    <DadosLinks paginaDeExibir dados={pf} />
+                    <Box component="span" m={15}>
+                        <BotaoSimples
+                            customizado={true}
+                            variant="outlined"
+                            onClick={voltar}
+                            nome="Voltar"
+                        />
+                        <BotaoSimples
+                            customizado={true}
+                            variant="contained"
+                            onClick={editar}
+                            nome="Editar"
+                            cor="primary"
+                        />
+                        <ConfirmarRemoçãoPF id={id} />
+                    </Box>
                 </>
-            </form>
+            }
         </Container>
     </>
 }

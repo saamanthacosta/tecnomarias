@@ -6,20 +6,21 @@ import DadosLinks from '../common/DadosLinks';
 import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
 import { useParams } from 'react-router';
 import PessoaFisicaService from '../../../../services/PessoaFisicaService';
-import PessoaFisica from '../../../../models/entities/PessoaFisica';
 import { converterPf } from '../../../../utils/conversorObj';
+import PessoaFisica from '../../../../models/entities/PessoaFisica';
 
 export default function EditarPF() {
 
     const { id } = useParams()
     const [etapaAtual, setEtapaAtual] = useState(0);
     const [pf, setPf] = useState(null);
+    const [mensagem, setMensagem] = useState(null)
 
     const formularios = [
         <DadosUsuario aoEnviar={coletarDados} dados={pf} />,
         <DadosPessoais aoEnviar={coletarDados} voltar={voltar} dados={pf} />,
         <DadosLinks aoEnviar={coletarDados} voltar={voltar} dados={pf} />,
-        <Typography variant="h5">Obrigado pelo Cadastro!</Typography>,
+        <Typography variant="h5">{mensagem}</Typography>,
     ];
 
     useEffect(() => {
@@ -35,11 +36,11 @@ export default function EditarPF() {
             var pessoaFisica =  converterPf(pf);
             PessoaFisicaService.alterar(pessoaFisica).then(
                 resposta => {
-                    console.log(resposta);
+                    setMensagem("A edição foi realizada com sucesso!")
                 }
             ).catch(
                 erro => {
-                    console.log(erro);
+                    setMensagem("Ops! Algo de errado aconteceu :(")
                 }
             )
         }

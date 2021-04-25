@@ -29,7 +29,7 @@ InputTexto.propTypes = {
     label: PropTypes.string.isRequired,
     textoDeAjuda: PropTypes.string,
     value: PropTypes.any.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     required: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -43,5 +43,6 @@ InputTexto.defaultProps = {
     readOnly: false,
     grande: true,
     erro: false,
-    textoDeAjuda: null
+    textoDeAjuda: null,
+    onChange: () => {}
 }

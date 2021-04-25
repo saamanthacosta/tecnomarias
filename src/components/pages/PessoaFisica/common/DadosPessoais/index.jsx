@@ -6,19 +6,19 @@ import { vaziaOuNull } from "../../../../../utils/vaziaOuNull";
 import ValidacoesCadastro from "../../../../../contexts/ValidacoesCadastro";
 import useErros from '../../../../../hooks/useErros'
 import InputMascara from "../../../../common/Input/Mascara";
-import Telefone from '../../../../../models/entities/Telefone'
+import Telefone from "../../../../../models/entities/Telefone";
 
 export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados }) {
     const formRef = useRef();
     const [nome, setNome] = useState("");
-    const [telefones, setTelefones] = useState([
+    const [telefoneList, setTelefones] = useState([
         new Telefone(null, '', '', ''),
         new Telefone(null, '', '', ''),
         new Telefone(null, '', '', '')
     ])
-    const [principal, setPrincipal] = useState('')
-    const [secundario, setSecundario] = useState('')
-    const [outro, setOutro] = useState('')
+    const [residencial, setResidencial] = useState('')
+    const [celular, setCelular] = useState('')
+    const [comercial, setComercial] = useState('')
 
     const validacoes = useContext(ValidacoesCadastro)
     const [erros, validarCampos, possoEnviar] = useErros(validacoes);
@@ -26,43 +26,51 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
     useEffect(() => {
         if (dados) {
             setNome(dados.nome);
-            if (dados.telefones.length > 0) {
-                setTelefones(dados.telefones);
-                setPrincipal(dados.telefones[0])
-                setSecundario(dados.telefones[1])
-                setOutro(dados.telefones[2])
+            if (!vaziaOuNull(dados.telefoneList)) {
+                setTelefones(dados.telefoneList);
+                let telefoneCompleto = `+${dados.telefoneList[0].ddi} (${dados.telefoneList[0].ddd}) ${dados.telefoneList[0].numero}`
+                setResidencial(telefoneCompleto);
+                if (!vaziaOuNull(dados.telefoneList[1])) {
+                    telefoneCompleto = `+${dados.telefoneList[1].ddi} (${dados.telefoneList[1].ddd}) ${dados.telefoneList[1].numero}`
+                    setCelular(telefoneCompleto)
+                }
+                if (!vaziaOuNull(dados.telefoneList[2])) {
+                    telefoneCompleto = `+${dados.telefoneList[2].ddi} (${dados.telefoneList[2].ddd}) ${dados.telefoneList[2].numero}`
+                    setComercial(telefoneCompleto)
+                }
             }
         }
-    }, [dados, telefones]);
+    }, [dados, telefoneList]);
 
 
     function proximo(event) {
         event.preventDefault();
         if (formRef.current.reportValidity() && possoEnviar()) {
-            aoEnviar({ nome, telefones })
+            aoEnviar({ nome, telefoneList })
         }
     }
 
     const onChangeTelefone = (prop) => (event) => {
         const { value } = event.target;
-        let telefone = converterTelefone(value, telefones[prop].id)
-        let telefonesAtualizados = telefones;
+        let telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
+        let telefonesAtualizados = telefoneList;
         telefonesAtualizados[prop] = telefone
         setTelefones(telefonesAtualizados);
+        var telefoneCompleto = `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
         if (prop === 0) {
-            setPrincipal(telefone.completo)
+            setResidencial(telefoneCompleto)
         } else if (prop === 1) {
-            setSecundario(telefone.completo)
+            setCelular(telefoneCompleto)
         } else if (prop === 2) {
-            setOutro(telefone.completo)
+            setComercial(telefoneCompleto)
         }
     }
 
-    function converterTelefone(valor, id) {
+    function converterTelefone(valor, id, idPessoa) {
         let ddi = valor.substring(1, 3);
         let ddd = valor.substring(5, 7);
         let numero = valor.substring(9, 19);
-        return new Telefone(id, ddi, ddd, numero)
+        return new Telefone(id, ddi, ddd, numero, idPessoa)
     }
 
     return (
@@ -75,7 +83,7 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
                     onBlur={validarCampos}
                     erro={!erros.nome.valido}
                     required={paginaDeExibir ? null : true}
-                    textoDeAjuda={paginaDeExibir ? null : erros.nome.texto}
+                    textoDeAjuda={paginaDeExibir ? "" : erros.nome.texto}
                     value={nome}
                     readOnly={paginaDeExibir ? true : false}
                     onChange={(e) => setNome(e.target.value)}
@@ -86,67 +94,60 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
                         <>
                             <InputTexto
                                 type="text"
-                                label="Telefone Principal"
-                                textoDeAjuda={paginaDeExibir ? null : "Insira seu telefone principal"}
+                                label="Telefone Residencial"
                                 readOnly={paginaDeExibir ? true : false}
-                                disabled={paginaDeExibir && vaziaOuNull(telefones[0])}
-                                value={principal}
+                                disabled={paginaDeExibir && vaziaOuNull(telefoneList[0])}
+                                value={residencial}
                                 onChange={(onChangeTelefone(0))}
                             />
                             <InputTexto
                                 type="text"
-                                label="Telefone Secundário"
-                                textoDeAjuda={paginaDeExibir ? null : "Se tiver um telefone secundário, insira ele aqui"}
+                                label="Telefone Celular"
                                 readOnly={paginaDeExibir ? true : false}
-                                disabled={paginaDeExibir && vaziaOuNull(telefones[1])}
-                                value={secundario}
+                                disabled={paginaDeExibir && vaziaOuNull(telefoneList[1])}
+                                value={celular}
                                 onChange={onChangeTelefone(1)}
                             />
                             <InputTexto
                                 type="text"
-                                label="Outro Telefone"
-                                textoDeAjuda={paginaDeExibir ? null : "Se tiver um outro telefone, insira ele aqui"}
+                                label="Telefone Comercial"
                                 readOnly={paginaDeExibir ? true : false}
-                                disabled={paginaDeExibir && vaziaOuNull(telefones[2])}
-                                value={outro}
+                                disabled={paginaDeExibir && vaziaOuNull(telefoneList[2])}
+                                value={comercial}
                                 onChange={onChangeTelefone(2)}
                             />
                         </>
                         :
                         <>
                             <InputMascara
-                                mascara="+99 (99) 99999-9999"
+                                mascara="+99 (99) 9999-9999"
                                 exibirSempre={true}
-                                value={principal}
-                                disabled={paginaDeExibir && vaziaOuNull(telefones[0])}
+                                value={residencial}
+                                disabled={paginaDeExibir && vaziaOuNull(telefoneList[0])}
                                 onChange={onChangeTelefone(0)}
                                 type="text"
-                                label="Telefone Principal"
-                                textoDeAjuda={paginaDeExibir ? null : "Insira seu telefone principal"}
-                                required={paginaDeExibir ? false : true}
+                                label="Telefone Residencial"
                             />
                             <InputMascara
                                 mascara="+99 (99) 99999-9999"
                                 exibirSempre={true}
                                 type="text"
-                                label="Telefone Secundário"
-                                textoDeAjuda={paginaDeExibir ? null : "Se tiver um telefone secundário, insira ele aqui"}
+                                label="Telefone Celular"
                                 readOnly={paginaDeExibir ? true : false}
-                                disabled={paginaDeExibir && vaziaOuNull(telefones[1])}
-                                value={secundario}
+                                disabled={paginaDeExibir && vaziaOuNull(telefoneList[1])}
+                                value={celular}
                                 onChange={onChangeTelefone(1)}
                             />
                             <InputMascara
                                 mascara="+99 (99) 99999-9999"
                                 exibirSempre={true}
-                                value={outro}
+                                value={comercial}
                                 onChange={onChangeTelefone(2)}
                                 type="text"
-                                label="Outro Telefone"
-                                textoDeAjuda={paginaDeExibir ? null : "Se tiver um outro telefone, insira ele aqui"}
+                                label="Telefone Comercial"
                                 required={paginaDeExibir ? false : true}
                                 readOnly={paginaDeExibir ? true : false}
-                                disabled={paginaDeExibir && vaziaOuNull(telefones[2])}
+                                disabled={paginaDeExibir && vaziaOuNull(telefoneList[2])}
                             />
                         </>
                 }

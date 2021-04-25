@@ -7,7 +7,7 @@ import { urlLinks } from "../../../../../utils/urlLinks";
 import Links from "../../../../../models/entities/Links";
 
 export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) {
-    const [links, setLinks] = useState(new Links(0, urlLinks.github, urlLinks.linkedin, urlLinks.portfolio, urlLinks.facebook));
+    const [links, setLinks] = useState(new Links(null, urlLinks.github, urlLinks.linkedin, urlLinks.portfolio, urlLinks.facebook));
 
     useEffect(() => {
         if (dados) {
@@ -33,22 +33,22 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) 
             <>
                 <InputTexto
                     type="text"
-                    name="github"
+                    name="gitHub"
                     label="GitHub"
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu GitHub"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={paginaDeExibir && vaziaOuNull(links.github)}
-                    value={links.github}
+                    disabled={paginaDeExibir && vaziaOuNull(links.gitHub)}
+                    value={links.gitHub === null ? urlLinks.github : links.gitHub}
                     onChange={onChangeLink(urlLinks.github)}
                 />
                 <InputTexto
                     type="text"
-                    name="linkedin"
+                    name="linkedIn"
                     label="LinkedIN"
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu LinkedIN"}
                     readOnly={paginaDeExibir ? true : false}
-                    disabled={paginaDeExibir && vaziaOuNull(links.linkedin)}
-                    value={links.linkedin}
+                    disabled={paginaDeExibir && vaziaOuNull(links.linkedIn)}
+                    value={links.linkedIn === null ? urlLinks.linkedin : links.linkedIn}
                     onChange={onChangeLink(urlLinks.linkedin)}
                 />
                 <InputTexto
@@ -58,7 +58,7 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) 
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu Facebook"}
                     readOnly={paginaDeExibir ? true : false}
                     disabled={paginaDeExibir && vaziaOuNull(links.facebook)}
-                    value={links.facebook}
+                    value={links.facebook === null ? urlLinks.facebook : links.facebook}
                     onChange={onChangeLink(urlLinks.facebook)}
                 />
                 <InputTexto
@@ -68,7 +68,7 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) 
                     textoDeAjuda={paginaDeExibir ? null : "Insira o link do seu portfólio"}
                     readOnly={paginaDeExibir ? true : false}
                     disabled={paginaDeExibir && vaziaOuNull(links.portfolio)}
-                    value={links.portfolio}
+                    value={links.portfolio === null ? urlLinks.portfolio : links.portfolio}
                     onChange={onChangeLink(urlLinks.portfolio)}
                 />
                 {

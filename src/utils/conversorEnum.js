@@ -1,7 +1,7 @@
-import { Cargo } from "../models/Cargo";
-import { PorteEmpresa } from "../models/PorteEmpresa";
-import { TipoEndereco } from "../models/TipoEndereco";
-import { TipoPessoa } from "../models/TipoPessoa";
+import { Cargo } from "../models/entities/Cargo";
+import { PorteEmpresa } from "../models/entities/PorteEmpresa";
+import { TipoEndereco } from "../models/entities/TipoEndereco";
+import { TipoPessoa } from "../models/entities/TipoPessoa";
 
 export function converterEnumCargo(cargo) {
     let cargoConvertido = null;
