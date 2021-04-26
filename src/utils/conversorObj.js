@@ -1,12 +1,12 @@
 import Telefone from '../models/entities/Telefone';
 
-export function converterPf(pessoaFisica) {
-    var telefones = verificarSeTelefonesEstaNulo(pessoaFisica.telefoneList)
+export function verificarTelefone(pessoa) {
+    var telefones = verificarSeTelefonesEstaNulo(pessoa.telefoneList)
     if (telefones !== null) {
-        telefones = converterTelefone(telefones, pessoaFisica.id)
+        telefones = converterTelefone(telefones, pessoa.id)
     }
-    pessoaFisica.telefoneList = telefones
-    return pessoaFisica;
+    pessoa.telefoneList = telefones
+    return pessoa;
 }
 
 function verificarSeTelefonesEstaNulo(telefones) {

@@ -6,7 +6,7 @@ import DadosLinks from '../common/DadosLinks';
 import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
 import { useParams } from 'react-router';
 import PessoaFisicaService from '../../../../services/PessoaFisicaService';
-import { converterPf } from '../../../../utils/conversorObj';
+import { verificarTelefone } from '../../../../utils/conversorObj';
 import PessoaFisica from '../../../../models/entities/PessoaFisica';
 
 export default function EditarPF() {
@@ -33,7 +33,7 @@ export default function EditarPF() {
             )
         }
         if (etapaAtual === formularios.length - 1) {
-            var pessoaFisica =  converterPf(pf);
+            var pessoaFisica =  verificarTelefone(pf);
             PessoaFisicaService.alterar(pessoaFisica).then(
                 resposta => {
                     setMensagem("A edição foi realizada com sucesso!")

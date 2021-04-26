@@ -1,30 +1,43 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import DadosUsuario from '../common/DadosUsuario';
-import DadosPessoais from '../common/DadosPessoais';
-import DadosLinks from '../common/DadosLinks';
+import DadosEmpresariais from '../common/DadosEmpresariais';
+import DadosEndereco from '../common/DadosEndereco';
 import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
+import PessoaJuridicaService from '../../../../services/PessoaJuridicaService';
+import PessoaJuridica from '../../../../models/entities/PessoaJuridica';
+import { verificarTelefone } from '../../../../utils/conversorObj';
 
-export default function CadastrarPF() {
+export default function CadastrarPJ() {
 
     const [etapaAtual, setEtapaAtual] = useState(0);
-    const [dadosColetados, setDados] = useState({});
+    const [pj, setPj] = useState(new PessoaJuridica(null, '', '', '', '', '', '', '', '', null, null, ''));
+    const [mensagem, setMensagem] = useState(null);
 
     useEffect(() => {
         if (etapaAtual === formularios.length - 1) {
-            console.log(dadosColetados);
+            let pessoaJuridica = verificarTelefone(pj);
+            PessoaJuridicaService.criar(pessoaJuridica).then(
+                resposta => {
+                    setMensagem("Cadastro realizado com sucesso!")
+                }
+            ).catch(
+                erro => {
+                    setMensagem("Ops! Alguma coisa de errado aconteceu, seu cadastro não foi realizado.")
+                }
+            )
         }
     });
 
     const formularios = [
         <DadosUsuario aoEnviar={coletarDados} />,
-        <DadosPessoais aoEnviar={coletarDados} voltar={voltar} />,
-        <DadosLinks aoEnviar={coletarDados} voltar={voltar} />,
-        <Typography variant="h5">Obrigado pelo Cadastro!</Typography>,
+        <DadosEmpresariais aoEnviar={coletarDados} voltar={voltar} />,
+        <DadosEndereco aoEnviar={coletarDados} voltar={voltar} />,
+        <Typography variant="h5">{mensagem}</Typography>,
     ];
 
     function coletarDados(dados) {
-        setDados({ ...dadosColetados, ...dados });
+        setPj({ ...pj, ...dados });
         proximo();
     }
 
@@ -49,10 +62,10 @@ export default function CadastrarPF() {
                     <StepLabel>Login</StepLabel>
                 </Step>
                 <Step onClick={voltarParaEtapaEspecifica(1)}>
-                    <StepLabel>Pessoal</StepLabel>
+                    <StepLabel>A Empresa</StepLabel>
                 </Step>
                 <Step onClick={voltarParaEtapaEspecifica(2)}>
-                    <StepLabel>Links</StepLabel>
+                    <StepLabel>Endereço</StepLabel>
                 </Step>
                 <Step>
                     <StepLabel>Conclusão</StepLabel>

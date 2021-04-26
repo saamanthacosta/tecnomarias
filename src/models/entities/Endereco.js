@@ -5,6 +5,6 @@ export default class Endereco {
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
-        this.municipioIBGE = this.municipioIBGE;
+        this.municipioIBGE = municipioIBGE;
     }
 }

@@ -1,58 +1,86 @@
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import Formulario from '../../../common/Formulario'
-import DadosLinks from '../common/DadosLinks';
-import DadosPessoais from '../common/DadosPessoais';
+import DadosEndereco from '../common/DadosEndereco';
+import DadosEmpresariais from '../common/DadosEmpresariais';
+import { useHistory, useParams } from 'react-router';
+import { routes } from '../../../../config/routes';
+import InputTexto from '../../../common/Input/Texto';
+import BotaoSimples from '../../../common/Botao/Simples';
+import ConfirmarRemocaoPJ from '../../../common/Modais/Confirmar/Remocao/PJ';
+import PessoaJuridicaService from '../../../../services/PessoaJuridicaService'
+import PessoaJuridica from '../../../../models/entities/PessoaJuridica'
 
-export default function ExibirPF() {
+export default function ExibirPJ() {
 
-    const [pf, setPf] = useState(null);
+    const { id } = useParams()
+    const [pj, setPj] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
-        if (pf === null) {
-            var teste = {
-                nome: 'Testando o nome',
-                telefones: ["21 99999999", "21 991111111"],
-                links: {
-                    linkedin: "linkedin",
-                    github: "github"
+        if (pj === null) {
+            PessoaJuridicaService.buscar(id).then(
+                resposta => {
+                    let pessoaJuridica = new PessoaJuridica(
+                        resposta.id, 
+                        resposta.nome, 
+                        resposta.email, 
+                        resposta.telefoneList, 
+                        resposta.cnpj,
+                        resposta.site,
+                        resposta.descricao,
+                        resposta.porteEmpresa,
+                        resposta.areaAtuacao,
+                        resposta.mediaAvaliacao,
+                        resposta.avaliacoes,
+                        resposta.endereco
+                        )
+                    setPj(pessoaJuridica)
                 }
-            };
-            setPf(teste)
+            )
         }
-    }, [pf])
+    }, [pj, id])
+
+    function voltar() {
+        history.goBack();
+    }
+
+    function editar() {
+        let rota = routes.EDITAR_PJ + id
+        history.push(rota);
+    }
 
     return <>
         <Container maxWidth="sm">
-            <Formulario>
+            {
+                pj !== null &&
                 <>
-                {
-                    pf !== null && 
-                    <>
-                    <DadosPessoais paginaDeExibir dados={pf} />
-                    <DadosLinks paginaDeExibir dados={pf.links} />
-                    </>
-                }
-                    
-                    {/* <Box component="span" m={20}>
-                    <BotaoSimples
-                        customizado={true}
-                        variant="outlined"
-                        onClick={voltar}
-                        nome="Voltar"
-                        cor="primary"
+                 <InputTexto
+                        type="email"
+                        label="E-mail"
+                        name="email"
+                        value={pj.email}
+                        readOnly={true}
                     />
-                    <BotaoSimples
-                        customizado={true}
-                        type="submit"
-                        variant="contained"
-                        onClick={proximo}
-                        nome="Próximo"
-                        cor="primary"
-                    />
-                </Box> */}
+                    <DadosEmpresariais paginaDeExibir dados={pj} />
+                    <DadosEndereco paginaDeExibir dados={pj} />
+                    <Box component="span" m={15}>
+                        <BotaoSimples
+                            customizado={true}
+                            variant="outlined"
+                            onClick={voltar}
+                            nome="Voltar"
+                        />
+                        <BotaoSimples
+                            customizado={true}
+                            variant="contained"
+                            onClick={editar}
+                            nome="Editar"
+                            cor="primary"
+                        />
+                        <ConfirmarRemocaoPJ id={id} />
+                    </Box>
                 </>
-            </Formulario>
+            }
         </Container>
     </>
 }

@@ -52,7 +52,12 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
 
     const onChangeTelefone = (prop) => (event) => {
         const { value } = event.target;
-        let telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
+        let telefone = null;
+        if (dados) {
+            telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
+        } else {
+            telefone = converterTelefone(value)
+        }
         let telefonesAtualizados = telefoneList;
         telefonesAtualizados[prop] = telefone
         setTelefones(telefonesAtualizados);
@@ -71,6 +76,13 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
         let ddd = valor.substring(5, 7);
         let numero = valor.substring(9, 19);
         return new Telefone(id, ddi, ddd, numero, idPessoa)
+    }
+
+    function converterTelefone(valor) {
+        let ddi = valor.substring(1, 3);
+        let ddd = valor.substring(5, 7);
+        let numero = valor.substring(9, 19);
+        return new Telefone(null, ddi, ddd, numero, null)
     }
 
     return (

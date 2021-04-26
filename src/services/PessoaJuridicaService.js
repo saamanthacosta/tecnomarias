@@ -8,16 +8,17 @@ class PessoaJuridicaService {
     }
 
     async buscar(id) {
-        return await Request.get(API.PESSOA_JURIDICA + `/${id}`);
+        let resposta = await Request.get(API.PESSOA_JURIDICA + `/${id}`);
+        return resposta.data;
     }
 
-    // async alterar(pessoaJuridica) {
-    //     return await Request.put(API.PESSOA_JURIDICA + `/${pessoaJuridica.id}`, pessoaJuridica);
-    // }
+    async alterar(pessoaJuridica) {
+        return await Request.put(API.PESSOA_JURIDICA + `/${pessoaJuridica.id}`, pessoaJuridica);
+    }
 
-    // async remover(id) {
-    //     return await Request.delete(API.PESSOA_JURIDICA + `/${id}`);
-    // }
+    async remover(id) {
+        return await Request.delete(API.PESSOA_JURIDICA + `/${id}`);
+    }
 
     async listar() {
         return await Request.get(API.PESSOA_JURIDICA);

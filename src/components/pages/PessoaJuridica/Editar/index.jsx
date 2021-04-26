@@ -1,42 +1,67 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import DadosUsuario from '../common/DadosUsuario';
-import DadosPessoais from '../common/DadosPessoais';
-import DadosLinks from '../common/DadosLinks';
+import DadosEmpresariais from '../common/DadosEmpresariais';
+import DadosEndereco from '../common/DadosEndereco';
 import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
+import PessoaJuridicaService from '../../../../services/PessoaJuridicaService'
+import PessoaJuridica from '../../../../models/entities/PessoaJuridica'
+import { useParams } from 'react-router';
+import { verificarTelefone } from '../../../../utils/conversorObj';
 
-export default function EditarPF() {
+export default function EditarPJ() {
 
+    const { id } = useParams()
     const [etapaAtual, setEtapaAtual] = useState(0);
-    const [dadosColetados, setDados] = useState({});
-    const [pf, setPf] = useState(null);
+    const [pj, setPj] = useState(null);
+    const [mensagem, setMensagem] = useState(null)
+
 
     const formularios = [
-        <DadosUsuario aoEnviar={coletarDados} />,
-        <DadosPessoais aoEnviar={coletarDados} voltar={voltar} dados={pf} />,
-        <DadosLinks aoEnviar={coletarDados} voltar={voltar} dados={pf} />,
-        <Typography variant="h5">Obrigado pelo Cadastro!</Typography>,
+        <DadosUsuario aoEnviar={coletarDados} dados={pj} />,
+        <DadosEmpresariais aoEnviar={coletarDados} voltar={voltar} dados={pj} />,
+        <DadosEndereco aoEnviar={coletarDados} voltar={voltar} dados={pj} />,
+        <Typography variant="h5">{mensagem}</Typography>,
     ];
 
     useEffect(() => {
-        if (pf === null) {
-            var teste = {
-                nome: 'Testando o nome',
-                telefones: ["21 99999999", "21 991111111"],
-                links: {
-                    linkedin: "linkedin",
-                    github: "github"
+        if (pj === null) {
+            PessoaJuridicaService.buscar(id).then(
+                resposta => {
+                    let pessoaJuridica = new PessoaJuridica(
+                        resposta.id, 
+                        resposta.nome, 
+                        resposta.email, 
+                        resposta.telefoneList, 
+                        resposta.cnpj,
+                        resposta.site,
+                        resposta.descricao,
+                        resposta.porteEmpresa,
+                        resposta.areaAtuacao,
+                        resposta.mediaAvaliacao,
+                        resposta.avaliacoes,
+                        resposta.endereco
+                        )
+                    setPj(pessoaJuridica)
                 }
-            };
-            setPf(teste)
+            )
         }
         if (etapaAtual === formularios.length - 1) {
-            console.log(dadosColetados);
+            var pessoaJuridica =  verificarTelefone(pj);
+            PessoaJuridicaService.alterar(pessoaJuridica).then(
+                resposta => {
+                    setMensagem("A edição foi realizada com sucesso!")
+                }
+            ).catch(
+                erro => {
+                    setMensagem("Ops! Algo de errado aconteceu :(")
+                }
+            )
         }
-    }, [pf, dadosColetados, etapaAtual, formularios.length]);
+    }, [pj, etapaAtual, formularios.length, id]);
 
     function coletarDados(dados) {
-        setDados({ ...dadosColetados, ...dados });
+        setPj({ ...pj, ...dados });
         proximo();
     }
 
@@ -57,7 +82,7 @@ export default function EditarPF() {
     return <>
         <Container maxWidth="sm">
             {
-                pf !== null &&
+                pj !== null &&
                 <>
                     <Stepper activeStep={etapaAtual}>
                         <Step onClick={voltarParaEtapaEspecifica(0)}>

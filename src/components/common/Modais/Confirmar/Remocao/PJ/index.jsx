@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Modal from '../../..';
+import PessoaJuridicaService from '../../../../../../services/PessoaJuridicaService';
 
-export default function ConfirmarRemoçãoPJ() {
+export default function ConfirmarRemoçãoPJ({ id }) {
+
+  const [mensagem, setMensagem] = useState("Essa ação é definitiva e não tem como ser desfeita. ");
 
   const conteudoModal = <>
-    <DialogContentText id="alert-dialog-description">
-      Essa ação é definitiva e não tem como ser desfeita.   
+    <DialogContentText>
+      {mensagem} 
     </DialogContentText>
   </>
 
@@ -19,8 +22,8 @@ export default function ConfirmarRemoçãoPJ() {
     conteudo: conteudoModal,
     botao: {
       abrir: {
-        nome: 'Excluir conta',
-        cor: 'primary'
+        nome: 'Excluir',
+        cor: 'secondary'
       },
       acaoPrincipal: {
         nome: 'Confirmar',
@@ -32,6 +35,15 @@ export default function ConfirmarRemoçãoPJ() {
   }
 
   function confirmar() {
+    PessoaJuridicaService.remover(id).then(
+      resposta => {
+        setMensagem("Empresa deletada com sucesso!")
+      }
+    ).catch(
+      erro => {
+        setMensagem("Ops! Não conseguimos deletar a empresa!")
+      }
+    );
   }
 
   return <>

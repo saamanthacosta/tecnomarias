@@ -2,7 +2,10 @@ export const routes = {
     HOME: '/',
     CADASTRAR_PF: '/cadastrar/pf',
     EDITAR_PF: '/editar/pf/',
-    EXIBIR_PF: '/exibir/pf/'
+    EXIBIR_PF: '/exibir/pf/',
+    CADASTRAR_PJ: '/cadastrar/pj',
+    EDITAR_PJ: '/editar/pj/',
+    EXIBIR_PJ: '/exibir/pj/',
 }
 
 export const API = {
