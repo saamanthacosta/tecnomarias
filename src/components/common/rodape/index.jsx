@@ -1,6 +1,10 @@
 import React from 'react';
 import css from "../../../assets/css/rodape.css";
 import logo from "../../../assets/imagens/logo-header2.PNG";
+import logo2 from "../../../assets/imagens/logo-face.png";
+import logo3 from "../../../assets/imagens/logo-insta.png";
+import logo4 from "../../../assets/imagens/logo-twitter.png";
+import logo5 from "../../../assets/imagens/logo-linkedin.png";
 
 export default function Rodape() {
     return (
@@ -23,7 +27,7 @@ export default function Rodape() {
                     height="75"
                     className="d-inline-block align-top"
                 />
-
+                <br/>
                 <p class="footer-links">
                     <a href="#" class="link-1">Home</a>
                     <a href="#">Vagas</a>
@@ -40,12 +44,53 @@ export default function Rodape() {
 
             <div class="footer-right">
 
+                <p class="footer-company-about">
+                        <span>Nossas Redes Sociais</span>
+                </p>
+
                 <div class="footer-icons">
 
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-github"></i></a>
+                    <div class="footer-icons-top">
+                        <a id="face" href="#">
+                            <img
+                                alt="logo-face"
+                                src={logo2}
+                                width="65"
+                                height="65"
+                                className="d-inline-block align-top"
+                            />
+                        </a>
+                        <a href="#">
+                            <img
+                                alt="logo-insta"
+                                src={logo3}
+                                width="65"
+                                height="65"
+                                className="d-inline-block align-top"
+                            />
+                        </a>
+                    </div>
+
+                    <div class="footer-icons-bottom">
+                    <a id="twitter" href="#">
+                            <img
+                                alt="logo-twitter"
+                                src={logo4}
+                                width="65"
+                                height="65"
+                                className="d-inline-block align-top"
+                            />
+                        </a>
+                        <a href="#">
+                            <img
+                                alt="logo-linkedin"
+                                src={logo5}
+                                width="65"
+                                height="65"
+                                className="d-inline-block align-top"
+                            />
+                        </a>
+                    </div>
 
                 </div>
 
