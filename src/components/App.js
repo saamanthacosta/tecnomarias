@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Header from "./common/Header";
+import Header from './common/Header';
 import Rodape from "./common/Rodape";
 import Home from "./pages/Home";
 import { routes } from "../config/routes";
