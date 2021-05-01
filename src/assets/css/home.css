@@ -1,0 +1,16 @@
+/* Container holding the image and the text */
+.home-img {
+    text-align: left;
+    color: white;
+  }
+  
+  /* Centered text */
+  .centered {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: x-large;
+    text-align: justify;
+    font-weight: bold;
+  }
