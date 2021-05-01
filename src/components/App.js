@@ -10,6 +10,8 @@ import EditarPJ from "./pages/PessoaJuridica/Editar";
 import ExibirPF from "./pages/PessoaFisica/Exibir";
 import ExibirPJ from "./pages/PessoaJuridica/Exibir";
 import ExibirVaga from "./pages/Vagas/Exibir";
+import Header from './common/Header/index.jsx';
+import Rodape from "./common/Rodape";
 
 import ValidacoesCadastro from '../contexts/ValidacoesCadastro';
 import { validarEmail, validarNome, validarSenha } from '../utils/validadores'
@@ -22,7 +24,7 @@ import ListagemPF from "./pages/PessoaFisica/Listagem";
 
 const RotasComCabecalhoERodape = () => (
   <>
-    {/* <Header /> */}
+    <Header />
     <Page>
       <Switch>
         <Route path={routes.HOME} exact component={ConfirmarRemocaoVaga} />
@@ -44,7 +46,7 @@ const RotasComCabecalhoERodape = () => (
       </Switch>
 
     </Page>
-    {/* <Rodape /> */}
+    <Rodape />
   </>
 )
 
