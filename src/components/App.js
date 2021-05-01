@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Rodape from "./common/Rodape";
+import Rodape from "./common/Rodape/index";
 import Home from "./pages/Home";
 import { routes } from "../config/routes";
 import ConfirmarRemocaoVaga from "./common/Modais/Confirmar/Existencia-Conta";
