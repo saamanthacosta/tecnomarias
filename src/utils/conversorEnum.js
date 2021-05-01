@@ -1,7 +1,6 @@
-import { Cargo } from "../models/Cargo";
-import { PorteEmpresa } from "../models/PorteEmpresa";
-import { TipoEndereco } from "../models/TipoEndereco";
-import { TipoPessoa } from "../models/TipoPessoa";
+import { Cargo } from "../models/entities/Cargo";
+import { TipoEndereco } from "../models/entities/TipoEndereco";
+import { TipoPessoa } from "../models/entities/TipoPessoa";
 
 export function converterEnumCargo(cargo) {
     let cargoConvertido = null;
@@ -25,27 +24,6 @@ export function converterEnumCargo(cargo) {
     }
 
     return cargoConvertido;
-}
-
-export function converterEnumPorteEmpresa(porteEmpresa) {
-    let porteEmpresaConvertido = null;
-
-    switch(porteEmpresa) {
-        case PorteEmpresa.MICROEMPRESA:
-            porteEmpresaConvertido = 'ESTAGIARIA';
-            break;
-        case PorteEmpresa.EMPRESA_PEQUENO_PORTE:
-            porteEmpresaConvertido = 'EMPRESA_PEQUENO_PORTE';
-            break;
-        case PorteEmpresa.EMPRESA_MEDIO_PORTE:
-            porteEmpresaConvertido = 'EMPRESA_MEDIO_PORTE';
-            break;
-        case PorteEmpresa.GRANDE_EMPRESA:
-            porteEmpresaConvertido = 'GRANDE_EMPRESA';
-            break;
-    }
-
-    return porteEmpresaConvertido;
 }
 
 export function converterEnumTipoEndereco(tipoEndereco) {

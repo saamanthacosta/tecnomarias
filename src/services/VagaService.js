@@ -8,7 +8,8 @@ class VagaService {
     }
 
     async buscar(id) {
-        return await Request.get(API.VAGA + `/${id}`);
+        let resposta = await Request.get(API.VAGA + `/${id}`);
+        return resposta.data;
     }
 
     async alterar(vaga) {
@@ -19,18 +20,20 @@ class VagaService {
         return await Request.delete(API.VAGA + `/${id}`);
     }
 
-    async listar(paginaInicial, itensPorPagina) {
-        let parametros = `?start=${paginaInicial}&pageSize=${itensPorPagina}`
-        return await Request.get(API.VAGA + parametros);
+    async listar() {
+        // let parametros = `?start=${paginaInicial}&pageSize=${itensPorPagina}`
+        let resposta = await Request.get(API.VAGA);
+        return resposta.data;
     }
 
     async listarPorEmpresa(id) {
-        return await Request.get(API.VAGA + `/empresa/${id}`)
+        let resposta = await Request.get(API.VAGA + `/empresa/${id}`)
+        return resposta.data;
     }
 
     async filtrar(tipo, valor) {
-        let parametros = `/filtro?filtro=${tipo}&valor=${valor}`
-        return await Request.get(API.VAGA + parametros);
+        let resposta = await Request.get(API.VAGA + `/filtro?filtro=${tipo}&valor=${valor}`);
+        return resposta.data;
     }
 }
 

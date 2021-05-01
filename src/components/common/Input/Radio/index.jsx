@@ -17,7 +17,7 @@ export default function InputRadio({ grupo, value, onChange, opcoes, textoDeAjud
                     opcoes.map(
                         opcao => {
                             return (
-                                <FormControlLabel disabled={opcao.disabled} value={opcao.value} control={<Radio />} label={opcao.nome} />
+                                <FormControlLabel value={opcao.id} control={<Radio />} label={opcao.nome} />
                             )
                         }
                     )
@@ -29,7 +29,7 @@ export default function InputRadio({ grupo, value, onChange, opcoes, textoDeAjud
 }
 
 InputRadio.propTypes = {
-    grupo: PropTypes.string.isRequired,
+    grupo: PropTypes.string,
     textoDeAjuda: PropTypes.string,
     value: PropTypes.any.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -38,6 +38,7 @@ InputRadio.propTypes = {
 }
 
 InputRadio.defaultProps = {
+    grupo: '',
     required: false,
     textoDeAjuda: null
 }
