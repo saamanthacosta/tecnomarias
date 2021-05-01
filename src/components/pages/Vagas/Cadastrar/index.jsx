@@ -16,7 +16,6 @@ export default function CadastrarVaga() {
 
     const onSubmit = (dados) => (event) => {
         event.preventDefault();
-        dados.areaAtuacao = 'Informatica';
         dados.idEmpresa = id;
         dados.id = null;
         VagaService.criar(dados).then(

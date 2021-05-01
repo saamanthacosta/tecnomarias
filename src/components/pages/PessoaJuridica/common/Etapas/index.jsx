@@ -12,34 +12,37 @@ export default function Etapas({ dados = null, onSubmit, mensagem }) {
     const [pessoa, setPessoa] = useState(null);
     const [requisicaoNaoFoiRealizada, setRequisicaoNaoFoiRealizada] = useState(true);
 
-    const enviarDadosParaOsForms = dados !== null ? pessoa : false;
+    const enviarDadosParaOsForms = dados !== null ? true : false;
 
     const formularios = [
-        <DadosUsuario aoEnviar={coletarDados} dados={enviarDadosParaOsForms} />,
-        <DadosEmpresariais aoEnviar={coletarDados} voltar={voltar} dados={enviarDadosParaOsForms} />,
-        <DadosEndereco aoEnviar={coletarDados} voltar={voltar} dados={enviarDadosParaOsForms} />,
+        <DadosUsuario aoEnviar={coletarDados} dados={enviarDadosParaOsForms ? pessoa : null} />,
+        <DadosEmpresariais aoEnviar={coletarDados} voltar={voltar} dados={enviarDadosParaOsForms ? pessoa : null} />,
+        <DadosEndereco aoEnviar={coletarDados} voltar={voltar} dados={enviarDadosParaOsForms ? pessoa : null} />,
         <Typography variant="h5">{mensagem}</Typography>,
     ];
 
     useEffect(() => {
-        if (dados) {
+        if (dados && etapaAtual === 0) {
             setPessoa(dados)
         }
         if (etapaAtual === formularios.length - 1 && requisicaoNaoFoiRealizada) {
             let idPessoa = vaziaOuNull(pessoa.id) ? null : pessoa.id
+            let avaliacoes = vaziaOuNull(pessoa.avaliacoes) ? null : pessoa.avaliacoes;
+            let mediaAvaliacao = vaziaOuNull(pessoa.mediaAvaliacao) ? null : pessoa.mediaAvaliacao;
             let pessoaJuridica = new PessoaJuridica(
                 idPessoa, pessoa.nome, pessoa.email, pessoa.telefoneList,
                 pessoa.cnpj, pessoa.site, pessoa.descricao, pessoa.porteEmpresa,
-                pessoa.areaAtuacao, pessoa.mediaAvaliacao, pessoa.avaliacoes, pessoa.endereco
+                pessoa.areaAtuacao, mediaAvaliacao, avaliacoes, pessoa.endereco
             )
             onSubmit(pessoaJuridica)
             setRequisicaoNaoFoiRealizada(false)
         }
+        console.log(formularios.length + pessoa)
     }, [dados, onSubmit, pessoa, etapaAtual, formularios.length, requisicaoNaoFoiRealizada]);
 
 
-    function coletarDados(dados) {
-        setPessoa({ ...pessoa, ...dados });
+    function coletarDados(novosDados) {
+        setPessoa({ ...pessoa, ...novosDados });
         proximo();
     }
 

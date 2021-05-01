@@ -72,6 +72,11 @@ export default function Card({ pj }) {
         return "Não cadastrado";
     }
 
+    function tratarCnpj(cnpj) {
+        let cnpjModificado = cnpj.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/)
+        return !cnpjModificado[2] ? cnpjModificado[1] : cnpjModificado[1] + '.' + cnpjModificado[2] + '.' + cnpjModificado[3] + '/' + cnpjModificado[4] + (cnpjModificado[5] ? '-' + cnpjModificado[5] : '')
+    }
+
     return <>
         {mensagem}
         <CardSimples
@@ -79,8 +84,9 @@ export default function Card({ pj }) {
             descricao={pj.site}
             outrasDescricoes={[
                 itemAvaliacao,
+                item('Email', pj.email),
                 item('Descrição', pj.descricao),
-                item('CNPJ', pj.cnpj),
+                item('CNPJ', tratarCnpj(pj.cnpj)),
                 item('Área de Atuação', pj.areaAtuacao),
                 item('Porte', PorteEmpresa.find(porte => porte.id === pj.porteEmpresa).nome),
                 item('Telefone Principal', verificarTelefone(pj.telefoneList, 0)),

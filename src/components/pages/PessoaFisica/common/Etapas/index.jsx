@@ -22,7 +22,7 @@ export default function Etapas({ dados=null, onSubmit, mensagem }) {
     ];
 
     useEffect(() => {
-        if (dados) {
+        if (dados && etapaAtual === 0) {
             setPessoa(dados)
         }
         if (etapaAtual === formularios.length - 1 && requisicaoNaoFoiRealizada) {
@@ -37,7 +37,8 @@ export default function Etapas({ dados=null, onSubmit, mensagem }) {
 
     
     function coletarDados(dados) {
-        setPessoa({ ...pessoa, ...dados });
+        let teste = { ...pessoa, ...dados };
+        setPessoa(teste);
         proximo();
     }
 
