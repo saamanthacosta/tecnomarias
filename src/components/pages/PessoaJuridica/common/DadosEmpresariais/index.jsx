@@ -11,6 +11,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
     const formRef = useRef();
     const [nome, setNome] = useState("");
     const [cnpj, setCnpj] = useState("");
+    const [cnpjInput, setCnpjInput] = useState("");
     const [site, setSite] = useState("");
     const [telefoneList, setTelefones] = useState([
         new Telefone(null, '', '', ''),
@@ -25,6 +26,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
         if (dados) {
             setNome(dados.nome);
             setCnpj(dados.cnpj);
+            setCnpjInput(dados.cnpj);
             setSite(dados.site);
             setPorte(dados.porteEmpresa);
             setPorteInput(PorteEmpresa.find(porte => porte.id === dados.porteEmpresa));
@@ -66,15 +68,13 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
         return new Telefone(id, ddi, ddd, numero, idPessoa)
     }
 
-    function tratarCnpj(cnpj) {
-        let cnpjModificado = cnpj.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
-        return !cnpjModificado[2] ? cnpjModificado[1] : cnpjModificado[1] + '.' + cnpjModificado[2] + '.' + cnpjModificado[3] + '/' + cnpjModificado[4] + (cnpjModificado[5] ? '-' + cnpjModificado[5] : '');
-    }
-
     function onChangeCnpj(event) {
         const { value } = event.target;
         if (value.length < 19) {
-            setCnpj(value)
+            setCnpj(value.replace(/[./-]/g, ''))
+            let cnpjModificado = value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+            setCnpjInput(!cnpjModificado[2] ? cnpjModificado[1] : cnpjModificado[1] + '.' + cnpjModificado[2] + '.' + cnpjModificado[3] + '/' + cnpjModificado[4] + (cnpjModificado[5] ? '-' + cnpjModificado[5] : ''))
+            
         }
     }
 
@@ -93,7 +93,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
                 label="CNPJ"
                 required={true}
                 textoDeAjuda="Insira o CNPJ da Empresa"
-                value={tratarCnpj(cnpj)}
+                value={cnpjInput}
                 onChange={onChangeCnpj}
             />
             <InputTexto

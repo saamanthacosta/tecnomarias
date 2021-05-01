@@ -10,6 +10,7 @@ import { Cargo } from '../../../../../models/enums/Cargo'
 import { Severidade } from '../../../../../models/enums/Severidade'
 import { TipoFiltro } from '../../../../../models/enums/TipoFiltro'
 import Alerta from '../../../../common/Alerta';
+import InputTexto from '../../../../common/Input/Texto';
 
 export default function Filtro({ tratarVagas }) {
 
@@ -58,8 +59,7 @@ export default function Filtro({ tratarVagas }) {
         }
         if (valor !== null) {
             VagaService.filtrar(tipoFiltro, valor).then(
-                resposta => 
-                {
+                resposta => {
                     tratarVagas(resposta)
                 }
             ).catch(
@@ -85,12 +85,13 @@ export default function Filtro({ tratarVagas }) {
                         />
                         {
                             (tipoFiltro === TipoFiltro[0].id) &&
-                            <InputSelect
-                                label="Area de Atuação"
-                                value={estado}
-                                opcoes={estados}
-                                textoDeAjuda="Selecione uma area de atuação"
-                                onChange={(event, newValue) => setArea(newValue)}
+                            <InputTexto
+                                type="text"
+                                label="Área de Atuação"
+                                required={true}
+                                textoDeAjuda="Insira a área de atuação"
+                                value={area}
+                                onChange={(e) => setArea(e.target.value)}
                             />
                         }
                         {

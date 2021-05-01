@@ -36,7 +36,7 @@ export default function CardSimples({ titulo, descricao, outrasDescricoes, onCli
                     outrasDescricoes !== null ? 
                     outrasDescricoes.map(descricao => {
                         return (
-                            <Typography key={descricao} className={classes.segundaDescricao} color="textSecondary" gutterBottom>
+                            <Typography key={Math.random(1, 101)} className={classes.segundaDescricao} color="textSecondary" gutterBottom>
                                 {descricao}
                             </Typography>
                         )

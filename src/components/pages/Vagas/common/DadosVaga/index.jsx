@@ -16,7 +16,6 @@ export default function DadosVaga({ onSubmit, dados }) {
     const [vaga, setVaga] = useState(new Vaga())
     const [estados, setEstados] = useState(null);
     const [estado, setEstado] = useState(null);
-    const [area, setArea] = useState(null);
     const [cargo, setCargo] = useState(null);
     const [valor, setValor] = useState('');
 
@@ -43,7 +42,6 @@ export default function DadosVaga({ onSubmit, dados }) {
             setCargo(Cargo.find(cargo => cargo.id === dados.cargo))
             if (estados !== null) {
                 setEstado(estados.find(estado => estado.nome === dados.localidade));
-                setArea(estados.find(estado => estado.nome === dados.localidade));
             }
         }
     }, [dados, estados])
@@ -58,16 +56,13 @@ export default function DadosVaga({ onSubmit, dados }) {
 
     return (
         <form onSubmit={onSubmit(vaga)} ref={formRef}>
-            <InputSelect
+            <InputTexto
+                type="text"
+                label="Área"
                 required={true}
-                label="Area de Atuação *"
-                value={area}
-                opcoes={estados}
-                textoDeAjuda="Selecione uma area de atuação"
-                onChange={(event, newValue) => {
-                    setArea(newValue);
-                    setVaga({ ...vaga, areaAtuacao: newValue.id });
-                }}
+                textoDeAjuda="Insira a área de atuação"
+                value={vaga.areaAtuacao}
+                onChange={(e) => setVaga({ ...vaga, areaAtuacao: e.target.value })}
             />
             <InputSelect
                 label="Cargo"
@@ -97,22 +92,21 @@ export default function DadosVaga({ onSubmit, dados }) {
                 value={vaga.descricao}
                 onChange={(e) => setVaga({ ...vaga, descricao: e.target.value })}
             />
-            
             <InputMascara
-                            mascara="R$9.999,99"
-                            exibirSempre={true}
-                            value={valor}
-                            onChange={onChangeSalario}
-                            type="text"
-                            label="Salário bruto"
-                            required={true}
-                        />
-            <Box component="span" m={15}>
-            <BotaoSimples
-                variant="outlined"
-                onClick={(e) => history.goBack()}
-                nome="Voltar"
+                mascara="R$9.999,99"
+                exibirSempre={true}
+                value={valor}
+                onChange={onChangeSalario}
+                type="text"
+                label="Salário bruto"
+                required={true}
             />
+            <Box component="span" m={15}>
+                <BotaoSimples
+                    variant="outlined"
+                    onClick={(e) => history.goBack()}
+                    nome="Voltar"
+                />
                 <BotaoSimples
                     type="submit"
                     variant="contained"

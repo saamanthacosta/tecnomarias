@@ -27,16 +27,14 @@ export default function ExibirPJ() {
                         resposta.mediaAvaliacao, resposta.avaliacoes, resposta.endereco
                     )
                     setPj(pessoaJuridica)
+                    setCarregando(false)
                 }
             ).catch(
                 erro => {
                     setMensagem("Não foi possível exibir esse perfil.")
+                    setCarregando(false)
                 }
             )
-        }
-        if (pj !== null) {
-            setCarregando(false)
-
         }
     }, [pj, id])
 
