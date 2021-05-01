@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Rodape from "./common/Rodape/index";
+import Rodape from "./common/Rodape/index.jsx";
 import Home from "./pages/Home";
 import { routes } from "../config/routes";
 import ConfirmarRemocaoVaga from "./common/Modais/Confirmar/Existencia-Conta";
@@ -11,7 +11,7 @@ import EditarPJ from "./pages/PessoaJuridica/Editar";
 import ExibirPF from "./pages/PessoaFisica/Exibir";
 import ExibirPJ from "./pages/PessoaJuridica/Exibir";
 import ExibirVaga from "./pages/Vagas/Exibir";
-import Header from './common/Header/index';
+import Header from './common/Header/index.jsx';
 
 import ValidacoesCadastro from '../contexts/ValidacoesCadastro';
 import { validarEmail, validarNome, validarSenha } from '../utils/validadores'
