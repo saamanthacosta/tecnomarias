@@ -1,6 +1,6 @@
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/imagens/logo-header2.PNG";
+import logo from "../../assets/imagens/logo-header2.PNG";
 import { routes } from "../../config/routes";
 
 export default function Header() {

@@ -1,9 +1,9 @@
 import React from 'react';
-import logo from "../../../assets/imagens/logo-header2.PNG";
-import logo2 from "../../../assets/imagens/logo-face.png";
-import logo3 from "../../../assets/imagens/logo-insta.png";
-import logo4 from "../../../assets/imagens/logo-twitter.png";
-import logo5 from "../../../assets/imagens/logo-linkedin.png";
+import logo from "../../assets/imagens/logo-header2.PNG";
+import logo2 from "../../assets/imagens/logo-face.png";
+import logo3 from "../../assets/imagens/logo-insta.png";
+import logo4 from "../../assets/imagens/logo-twitter.png";
+import logo5 from "../../assets/imagens/logo-linkedin.png";
 import { Link } from 'react-router-dom';
 import { routes } from '../../config/routes'
 
