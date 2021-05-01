@@ -1,11 +1,17 @@
 export const routes = {
     HOME: '/',
-    CADASTRAR_PF: '/cadastrar/pf',
-    EDITAR_PF: '/editar/pf/',
-    EXIBIR_PF: '/exibir/pf/',
-    CADASTRAR_PJ: '/cadastrar/pj',
-    EDITAR_PJ: '/editar/pj/',
-    EXIBIR_PJ: '/exibir/pj/',
+    CADASTRAR_PF: '/pf/cadastrar',
+    EDITAR_PF: '/pf/editar/',
+    EXIBIR_PF: '/pf/detalhes/',
+    LISTAR_PF: '/pfs/',
+    CADASTRAR_PJ: '/pj/cadastrar',
+    EDITAR_PJ: '/pj/editar/',
+    EXIBIR_PJ: '/pj/detalhes/',
+    LISTAR_PJ: '/pjs/',
+    CADASTRAR_VAGA: '/vaga/cadastrar/',
+    EXIBIR_VAGA: '/vaga/detalhes/',
+    EDITAR_VAGA: '/vaga/editar/',
+    LISTAR_VAGAS: '/vagas/',
 }
 
 export const API = {

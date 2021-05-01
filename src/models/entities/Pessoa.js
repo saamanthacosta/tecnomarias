@@ -1,3 +1,4 @@
+import { vaziaOuNull } from "../../utils/vaziaOuNull";
 import Telefone from "./Telefone";
 
 export default class Pessoa {
@@ -8,19 +9,51 @@ export default class Pessoa {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.telefoneList = converterTelefone(telefoneList, id);
+        this.telefoneList = verificarTelefone(telefoneList);
         this.tipoPessoa = tipoPessoa
     }
 }
 
-function converterTelefone(telefones, id) {
-    if (telefones.length === 0 || telefones === null) {
+function verificarTelefone(telefoneList, id) {
+    var telefones = verificarSeTelefonesEstaNulo(telefoneList)
+    if (telefones !== null) {
+        telefones = converterTelefone(telefones, id)
+    }
+    return telefones;
+}
+
+function verificarSeTelefonesEstaNulo(telefones) {
+    if (vaziaOuNull(telefones)) {
         return null;
     }
-    let lista = [];
+    let estaNulo = true;
+    let estruturaInicial = [
+        "+ () ",
+        "+__ (__) ____-____",
+        "+__ (__) _____-____",
+    ]
     telefones.forEach(telefone => {
-        let novoTelefone = new Telefone(telefone.id, telefone.ddi, telefone.ddd, telefone.numero, id);
-        lista.push(novoTelefone);
+        let telefoneCompleto = `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
+        if (!estruturaInicial.includes(telefoneCompleto)) {
+            estaNulo = false;
+        }
+    });
+    return estaNulo ? null : telefones
+}
+
+function converterTelefone(telefones, id) {
+    let lista = [];
+    let estruturaInicial = [
+        "+ () ",
+        "+__ (__) ____-____",
+        "+__ (__) _____-____",
+    ]
+    telefones.forEach(telefone => {
+        let telefoneCompleto = `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
+        if (telefoneCompleto !== estruturaInicial) {
+            let novoTelefone = new Telefone(telefone.id, telefone.ddi, telefone.ddd, telefone.numero, id);
+            lista.push(novoTelefone)
+        }
     });
     return lista;
 }

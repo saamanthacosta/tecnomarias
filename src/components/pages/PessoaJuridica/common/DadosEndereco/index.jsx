@@ -98,7 +98,7 @@ export default function DadosEndereco({ aoEnviar, voltar, paginaDeExibir, dados 
                 textoDeAjuda={paginaDeExibir ? null : "Insira o complemento"}
                 readOnly={paginaDeExibir ? true : false}
                 disabled={paginaDeExibir && vaziaOuNull(endereco.complemento)}
-                value={endereco.complemento}
+                value={endereco.complemento === null ? '' : endereco.completo}
                 onChange={onChangeEndereco('complemento')}
             />
             {
@@ -145,13 +145,11 @@ export default function DadosEndereco({ aoEnviar, voltar, paginaDeExibir, dados 
                         <Box component="span" m={20}>
                             <BotaoSimples
                                 variant="outlined"
-                                customizado={true}
                                 onClick={voltar}
                                 nome="Voltar"
                                 cor="primary"
                             />
                             <BotaoSimples
-                                customizado={true}
                                 type="submit"
                                 variant="contained"
                                 onClick={proximo}

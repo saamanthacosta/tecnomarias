@@ -1,7 +1,22 @@
-export const Cargo = {
-    ESTAGIARIA: 'Estagiária',
-    JUNIOR: 'Júnior',
-    PLENO: 'Pleno',
-    SENIOR: 'Senior',
-    GERENTE: 'Gerente'
-}
+export const Cargo = [
+    {
+        id: 'ESTAGIARIA',
+        nome: 'Estagiária'
+    },
+    {
+        id: 'JUNIOR',
+        nome: 'Júnior'
+    },
+    {
+        id: 'PLENO',
+        nome: 'Pleno'
+    },
+    {
+        id: 'SENIOR',
+        nome: 'Senior'
+    },
+    {
+        id: 'GERENTE',
+        nome: 'Gerente'
+    },
+]

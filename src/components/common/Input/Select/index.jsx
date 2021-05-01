@@ -5,7 +5,7 @@ import { Autocomplete } from '@material-ui/lab';
 
 export default function InputSelect({ label, value, onChange, opcoes, textoDeAjuda, required, disabled, grande }) {
     return <>
-        <FormControl required={required} fullWidth={grande} disabled={disabled}>
+        <FormControl required={required} fullWidth={grande} disabled={disabled} margin="normal">
             <Autocomplete
                 value={value}
                 onChange={(event, newValue) => onChange(event, newValue)}

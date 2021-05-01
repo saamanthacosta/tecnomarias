@@ -1,4 +1,4 @@
-export class Avaliacao {
+export default class Avaliacao {
     constructor(id, comentario, nota, data, nomeAvaliadora, idEmpresa) {
         this.id = id;
         this.comentario = comentario;

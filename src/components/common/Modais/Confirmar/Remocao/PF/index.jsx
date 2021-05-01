@@ -3,6 +3,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Modal from '../../..';
 import PessoaFisicaService from '../../../../../../services/PessoaFisicaService';
+import Alerta from '../../../../Alerta'
+import { Severidade } from '../../../../../../models/enums/Severidade'
 
 export default function ConfirmarRemoçãoPF({ id }) {
 
@@ -37,11 +39,13 @@ export default function ConfirmarRemoçãoPF({ id }) {
   function confirmar() {
     PessoaFisicaService.remover(id).then(
       resposta => {
-        setMensagem("Conta deletada com sucesso!")
+        let sucesso = <Alerta tipo={Severidade.SUCESSO} mensagem="Conta deletada com sucesso!" />
+        setMensagem(sucesso)
       }
     ).catch(
-      erro => {
-        setMensagem("Ops! Não conseguimos deletar a conta!")
+      resposta => {
+        let erro = <Alerta tipo={Severidade.ERRO} mensagem="Ops! Não conseguimos deletar a conta!" />
+        setMensagem(erro)
       }
     );
   }

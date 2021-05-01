@@ -1,4 +1,4 @@
-export class Vaga { 
+export default class Vaga { 
     constructor(id, idEmpresa, areaAtuacao, cargo, descricao, valor, localidade) {
         this.id = id;
         this.idEmpresa = idEmpresa;

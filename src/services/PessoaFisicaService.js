@@ -21,6 +21,11 @@ class PessoaFisicaService {
         var resposta = await Request.delete(API.PESSOA_FISICA + `/${id}`);
         return resposta;
     }
+
+    async listar() {
+        var resposta = await Request.get(API.PESSOA_FISICA);
+        return resposta.data;
+    }
 }
 
 export default new PessoaFisicaService();

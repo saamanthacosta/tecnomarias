@@ -5,10 +5,9 @@ import InputSelect from "../../../../common/Input/Select";
 import { Box } from "@material-ui/core";
 import { PorteEmpresa } from '../../../../../models/enums/PorteEmpresa';
 import InputMascara from "../../../../common/Input/Mascara";
-import { vaziaOuNull } from "../../../../../utils/vaziaOuNull";
 import Telefone from "../../../../../models/entities/Telefone";
 
-export default function DadosEmpresariais({ aoEnviar, voltar, paginaDeExibir, dados }) {
+export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
     const formRef = useRef();
     const [nome, setNome] = useState("");
     const [cnpj, setCnpj] = useState("");
@@ -19,10 +18,8 @@ export default function DadosEmpresariais({ aoEnviar, voltar, paginaDeExibir, da
     ])
     const [porteEmpresa, setPorte] = useState("");
     const [porteInput, setPorteInput] = useState("")
-    const [areaAtuacao, setArea] = useState("Ciencia");
+    const [areaAtuacao, setArea] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [principal, setPrincipal] = useState("");
-    const [secundario, setSecundario] = useState("");
 
     useEffect(() => {
         if (dados) {
@@ -33,8 +30,16 @@ export default function DadosEmpresariais({ aoEnviar, voltar, paginaDeExibir, da
             setPorteInput(PorteEmpresa.find(porte => porte.id === dados.porteEmpresa));
             setArea(dados.areaAtuacao);
             setDescricao(dados.descricao);
+            if (dados.telefoneList !== null) {
+                if (dados.telefoneList[0] !== null) {
+                    setTelefones({ ...telefoneList, 0: dados.telefoneList[0] })
+                }
+                if (dados.telefoneList[1] !== null) {
+                    setTelefones({ ...telefoneList, 1: dados.telefoneList[0] })
+                }
+            }
         }
-    }, [dados]);
+    }, [dados, telefoneList]);
 
 
     function proximo(event) {
@@ -45,20 +50,13 @@ export default function DadosEmpresariais({ aoEnviar, voltar, paginaDeExibir, da
     const onChangeTelefone = (prop) => (event) => {
         const { value } = event.target;
         let telefone = null;
-        if (dados) {
-            telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
-        } else {
-            telefone = converterTelefone(value)
-        }
-        let telefonesAtualizados = telefoneList;
-        telefonesAtualizados[prop] = telefone
-        setTelefones(telefonesAtualizados);
-        var telefoneCompleto = `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
-        if (prop === 0) {
-            setPrincipal(telefoneCompleto)
-        } else if (prop === 1) {
-            setSecundario(telefoneCompleto)
-        }
+        dados ? telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
+            : telefone = converterTelefone(value, null, null)
+        setTelefones({ ...telefoneList, [prop]: telefone })
+    }
+
+    function tratarTelefone(telefone) {
+        return `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
     }
 
     function converterTelefone(valor, id, idPessoa) {
@@ -68,143 +66,99 @@ export default function DadosEmpresariais({ aoEnviar, voltar, paginaDeExibir, da
         return new Telefone(id, ddi, ddd, numero, idPessoa)
     }
 
-    function converterTelefone(valor) {
-        let ddi = valor.substring(1, 3);
-        let ddd = valor.substring(5, 7);
-        let numero = valor.substring(9, 19);
-        return new Telefone(null, ddi, ddd, numero, null)
+    function tratarCnpj(cnpj) {
+        let cnpjModificado = cnpj.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+        return !cnpjModificado[2] ? cnpjModificado[1] : cnpjModificado[1] + '.' + cnpjModificado[2] + '.' + cnpjModificado[3] + '/' + cnpjModificado[4] + (cnpjModificado[5] ? '-' + cnpjModificado[5] : '');
     }
 
+    function onChangeCnpj(event) {
+        const { value } = event.target;
+        if (value.length < 19) {
+            setCnpj(value)
+        }
+    }
 
     return (
         <form onSubmit={proximo} ref={formRef}>
             <InputTexto
                 type="text"
                 label="Nome"
-                required={paginaDeExibir ? null : true}
-                textoDeAjuda={paginaDeExibir ? null : "Insira o nome da Empresa"}
+                required={true}
+                textoDeAjuda="Insira o nome da Empresa"
                 value={nome}
-                readOnly={paginaDeExibir ? true : false}
                 onChange={(e) => setNome(e.target.value)}
             />
             <InputTexto
                 type="text"
                 label="CNPJ"
-                required={paginaDeExibir ? null : true}
-                textoDeAjuda={paginaDeExibir ? null : "Insira o CNPJ da Empresa"}
-                value={cnpj}
-                readOnly={paginaDeExibir ? true : false}
-                onChange={(e) => setCnpj(e.target.value)}
+                required={true}
+                textoDeAjuda="Insira o CNPJ da Empresa"
+                value={tratarCnpj(cnpj)}
+                onChange={onChangeCnpj}
             />
             <InputTexto
                 type="text"
                 label="Site"
-                required={paginaDeExibir ? null : true}
-                textoDeAjuda={paginaDeExibir ? null : "Insira o site da Empresa"}
+                required={true}
+                textoDeAjuda="Insira o site da Empresa"
                 value={site}
-                readOnly={paginaDeExibir ? true : false}
                 onChange={(e) => setSite(e.target.value)}
             />
-            {
-                paginaDeExibir ?
-                    <>
-                        <InputTexto
-                            type="text"
-                            label="Telefone Principal"
-                            readOnly={paginaDeExibir ? true : false}
-                            disabled={paginaDeExibir && vaziaOuNull(telefoneList[0])}
-                            value={principal}
-                            onChange={onChangeTelefone(0)} />
-                        <InputTexto
-                            type="text"
-                            label="Telefone Secundário"
-                            readOnly={paginaDeExibir ? true : false}
-                            disabled={paginaDeExibir && vaziaOuNull(telefoneList[1])}
-                            value={secundario}
-                            onChange={onChangeTelefone(1)} />
-                    </>
-                    :
-                    <>
-                        <InputMascara
-                            mascara="+99 (99) 9999-9999"
-                            exibirSempre={true}
-                            value={principal}
-                            onChange={onChangeTelefone(0)}
-                            type="text"
-                            label="Telefone"
-                            readOnly={paginaDeExibir ? true : false}
-                            disabled={paginaDeExibir && vaziaOuNull(telefoneList[0])}
-                        />
-
-                        <InputMascara
-                            mascara="+99 (99) 99999-9999"
-                            exibirSempre={true}
-                            value={secundario}
-                            onChange={onChangeTelefone(1)}
-                            type="text"
-                            label="Telefone Secundário"
-                            readOnly={paginaDeExibir ? true : false}
-                            disabled={paginaDeExibir && vaziaOuNull(telefoneList[1])}
-                        />
-                    </>
-            }
+            <InputMascara
+                mascara="+99 (99) 9999-9999"
+                exibirSempre={true}
+                value={tratarTelefone(telefoneList[0])}
+                onChange={onChangeTelefone(0)}
+                type="text"
+                label="Telefone Principal"
+            />
+            <InputMascara
+                mascara="+99 (99) 99999-9999"
+                exibirSempre={true}
+                value={tratarTelefone(telefoneList[1])}
+                onChange={onChangeTelefone(1)}
+                type="text"
+                label="Telefone Secundário"
+            />
             <InputTexto
                 type="text"
                 label="Descrição"
-                required={paginaDeExibir ? null : true}
-                textoDeAjuda={paginaDeExibir ? null : "Insira uma breve descrição da Empresa"}
+                required={true}
+                textoDeAjuda="Insira uma breve descrição da Empresa"
                 value={descricao}
-                readOnly={paginaDeExibir ? true : false}
                 onChange={(e) => setDescricao(e.target.value)}
             />
-            {
-                paginaDeExibir ?
-                    (porteInput !== null) &&
-                    <InputTexto
-                        type="text"
-                        label="Porte"
-                        value={porteInput.nome}
-                        readOnly={true}
-                    />
-                    :
-                    <>
-                        {/* <InputSelect
-                        label="Area"
-                        value={area}
-                        textoDeAjuda={paginaDeExibir ? null : "Selecione a área da empresa"}
-                        onChange={(event, newValue) => setArea(newValue)}
-                        required={paginaDeExibir ? null : true}
-                        readOnly={paginaDeExibir ? true : false}
-                        opcoes={['Area 1', '2']}
-                    /> */}
-                        <InputSelect
-                            label="Porte"
-                            value={porteInput}
-                            textoDeAjuda={paginaDeExibir ? null : "Selecione o porte da empresa"}
-                            onChange={(event, newValue) => { setPorte(newValue.id); setPorteInput(newValue) }}
-                            required={paginaDeExibir ? null : true}
-                            readOnly={paginaDeExibir ? true : false}
-                            opcoes={PorteEmpresa}
-                        />
-                        <Box component="span" m={20}>
-                            <BotaoSimples
-                                customizado={true}
-                                variant="outlined"
-                                onClick={voltar}
-                                nome="Voltar"
-                                cor="primary"
-                            />
-                            <BotaoSimples
-                                customizado={true}
-                                type="submit"
-                                variant="contained"
-                                onClick={proximo}
-                                nome="Próximo"
-                                cor="primary"
-                            />
-                        </Box>
-                    </>
-            }
+            <InputTexto
+                type="text"
+                label="Área"
+                required={true}
+                textoDeAjuda="Insira a área de atuação da Empresa"
+                value={areaAtuacao}
+                onChange={(e) => setArea(e.target.value)}
+            />
+            <InputSelect
+                label="Porte *"
+                value={porteInput}
+                textoDeAjuda="Selecione o porte da empresa"
+                onChange={(event, newValue) => { setPorte(newValue.id); setPorteInput(newValue) }}
+                required={true}
+                opcoes={PorteEmpresa}
+            />
+            <Box component="span" m={20}>
+                <BotaoSimples
+                    variant="outlined"
+                    onClick={voltar}
+                    nome="Voltar"
+                    cor="primary"
+                />
+                <BotaoSimples
+                    type="submit"
+                    variant="contained"
+                    onClick={proximo}
+                    nome="Próximo"
+                    cor="primary"
+                />
+            </Box>
         </form>
     );
 }

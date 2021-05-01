@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BotaoSimples({ focus, onClick, cor, disabled, variant, nome, type, customizado }) {
+export default function BotaoSimples({ focus, onClick, cor, disabled, variant, nome, type }) {
 
   const classes = useStyles();
 

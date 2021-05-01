@@ -21,7 +21,8 @@ class PessoaJuridicaService {
     }
 
     async listar() {
-        return await Request.get(API.PESSOA_JURIDICA);
+        let resposta = await Request.get(API.PESSOA_JURIDICA);
+        return resposta.data;
     }
 
     async listarAreasAtuacao() {
@@ -29,7 +30,8 @@ class PessoaJuridicaService {
     }
 
     async avaliar(id, avaliacao) {
-        return await Request.get(API.PESSOA_JURIDICA + `/${id}/avaliacao`, avaliacao);
+        let resposta = await Request.post(API.PESSOA_JURIDICA + `/${id}/avaliacao`, avaliacao);
+        return resposta.data;
     }
 }
 

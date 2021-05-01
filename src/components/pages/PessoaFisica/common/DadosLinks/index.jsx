@@ -76,13 +76,11 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) 
                     <Box component="span" m={20}>
                         <BotaoSimples
                             variant="outlined"
-                            customizado={true}
                             onClick={voltar}
                             nome="Voltar"
                             cor="primary"
                         />
                         <BotaoSimples
-                            customizado={true}
                             type="submit"
                             variant="contained"
                             onClick={proximo}

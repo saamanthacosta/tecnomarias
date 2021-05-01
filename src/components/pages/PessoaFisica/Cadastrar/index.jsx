@@ -1,75 +1,37 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
-import DadosUsuario from '../common/DadosUsuario';
-import DadosPessoais from '../common/DadosPessoais';
-import DadosLinks from '../common/DadosLinks';
-import { Container, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
-import { verificarTelefone } from '../../../../utils/conversorObj';
+import { useState } from 'react';
+import { Container } from '@material-ui/core'
 import PessoaFisicaService from '../../../../services/PessoaFisicaService';
+import Alerta from '../../../common/Alerta';
+import { Severidade } from '../../../../models/enums/Severidade'
+import Paper from '../../../common/Paper';
+import Etapas from '../common/Etapas';
 
 export default function CadastrarPF() {
 
-    const [etapaAtual, setEtapaAtual] = useState(0);
-    const [dadosColetados, setDados] = useState({});
+    const [mensagem, setMensagem] = useState(null)
 
-    useEffect(() => {
-        if (etapaAtual === formularios.length - 1) {
-            var pessoaFisica = verificarTelefone(dadosColetados);
-            PessoaFisicaService.criar(pessoaFisica).then(
-                resposta => {
-                    console.log(resposta);
-                }
-            ).catch(
-                erro => {
-                    console.log(erro);
-                }
-            )
-        }
-    });
-
-    const formularios = [
-        <DadosUsuario aoEnviar={coletarDados} />,
-        <DadosPessoais aoEnviar={coletarDados} voltar={voltar} />,
-        <DadosLinks aoEnviar={coletarDados} voltar={voltar} />,
-        <Typography variant="h5">Obrigado pelo Cadastro!</Typography>,
-    ];
-
-    function coletarDados(dados) {
-        setDados({ ...dadosColetados, ...dados });
-        proximo();
-    }
-
-    function proximo() {
-        setEtapaAtual(etapaAtual + 1);
-    }
-
-    function voltar() {
-        setEtapaAtual(etapaAtual - 1);
-    }
-
-    const voltarParaEtapaEspecifica = (etapa) => (e) => {
-        if (etapa < etapaAtual) {
-            setEtapaAtual(etapa)
-        }
+    function cadastrar(pessoaFisica) {
+        PessoaFisicaService.criar(pessoaFisica).then(
+            resposta => {
+                let sucesso = <Alerta tipo={Severidade.SUCESSO} mensagem="A conta foi criada com sucesso!" />
+                setMensagem(sucesso)
+            }
+        ).catch(
+            resposta => {
+                let erro = <Alerta tipo={Severidade.ERRO} mensagem="Ops! Algo de errado aconteceu!" />
+                setMensagem(erro)
+            }
+        )
     }
 
     return <>
         <Container maxWidth="sm">
-            <Stepper activeStep={etapaAtual}>
-                <Step onClick={voltarParaEtapaEspecifica(0)}>
-                    <StepLabel>Login</StepLabel>
-                </Step>
-                <Step onClick={voltarParaEtapaEspecifica(1)}>
-                    <StepLabel>Pessoal</StepLabel>
-                </Step>
-                <Step onClick={voltarParaEtapaEspecifica(2)}>
-                    <StepLabel>Links</StepLabel>
-                </Step>
-                <Step>
-                    <StepLabel>Conclusão</StepLabel>
-                </Step>
-            </Stepper>
-            {formularios[etapaAtual]}
+            <Paper>
+                <Container maxWidth="sm">
+                    <Etapas onSubmit={cadastrar} mensagem={mensagem} />
+                </Container>
+            </Paper>
         </Container>
     </>
 }

@@ -1,20 +1,19 @@
-import { Box, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import PessoaFisicaService from '../../../../services/PessoaFisicaService';
-import DadosLinks from '../common/DadosLinks';
-import DadosPessoais from '../common/DadosPessoais';
-import InputTexto from '../../../common/Input/Texto';
-import { routes } from '../../../../config/routes';
-import ConfirmarRemoçãoPF from '../../../common/Modais/Confirmar/Remocao/PF';
-import BotaoSimples from '../../../common/Botao/Simples';
 import PessoaFisica from '../../../../models/entities/PessoaFisica';
+import MensagemErro from '../../../common/MensagemErro';
+import Carregando from '../../../common/Carregando';
+import Card from './Card'
+import Botoes from './Botoes';
 
 export default function ExibirPF() {
 
     const { id } = useParams()
     const [pf, setPf] = useState(null);
-    const history = useHistory();
+    const [mensagem, setMensagem] = useState(null);
+    const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
         if (pf === null) {
@@ -23,49 +22,29 @@ export default function ExibirPF() {
                     let pessoaFisica = new PessoaFisica(resposta.id, resposta.nome, resposta.email, resposta.telefoneList, resposta.links)
                     setPf(pessoaFisica)
                 }
+            ).catch(
+                erro => {
+                    setMensagem("Não foi possível exibir esse perfil.")
+                }
             )
+        }
+        if (pf !== null) {
+            setCarregando(false)
+
         }
     }, [pf, id])
 
-    function editar() {
-        let rota = routes.EDITAR_PF + id
-        history.push(rota);
-    }
-
-    function voltar() {
-        history.goBack();
-    }
-
     return <>
+        <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
         <Container maxWidth="sm">
+            {
+                mensagem && <MensagemErro mensagem={mensagem} />
+            }
             {
                 pf !== null &&
                 <>
-                    <InputTexto
-                        type="email"
-                        label="E-mail"
-                        name="email"
-                        value={pf.email}
-                        readOnly={true}
-                    />
-                    <DadosPessoais paginaDeExibir dados={pf} />
-                    <DadosLinks paginaDeExibir dados={pf} />
-                    <Box component="span" m={15}>
-                        <BotaoSimples
-                            customizado={true}
-                            variant="outlined"
-                            onClick={voltar}
-                            nome="Voltar"
-                        />
-                        <BotaoSimples
-                            customizado={true}
-                            variant="contained"
-                            onClick={editar}
-                            nome="Editar"
-                            cor="primary"
-                        />
-                        <ConfirmarRemoçãoPF id={id} />
-                    </Box>
+                    <Card pf={pf} />
+                    <Botoes id={id} />
                 </>
             }
         </Container>
