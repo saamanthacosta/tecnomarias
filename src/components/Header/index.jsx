@@ -21,17 +21,23 @@ export default function Header() {
                 </Nav>
                 <Nav>
                     <Link to="/" style={{ textDecoration: 'none' }} >
-                    <Nav.Link href="#home">Home</Nav.Link>
+                    <Nav.Link href="#">Home</Nav.Link>
                     </Link>
                     <Link to={routes.LISTAR_VAGAS} style={{ textDecoration: 'none' }} >
                     <Nav.Link href="#vagas">Vagas</Nav.Link>
                     </Link>
-                    <Nav.Link href="#cadastros">Cadastros</Nav.Link>
+                    <Link to={routes.LISTAR_PF} style={{ textDecoration: 'none' }} >
+                    <Nav.Link href="#pfs">Pessoas</Nav.Link>
+                    </Link>
+                    <Link to={routes.LISTAR_PJ} style={{ textDecoration: 'none' }} >
+                    <Nav.Link href="#pjs">Empresas</Nav.Link>
+                    </Link>
+                    {/* <Nav.Link href="#cadastros">Cadastros</Nav.Link>
                     <NavDropdown title="Conecte-se" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/loginpf">Login P. Física</NavDropdown.Item>
                         <NavDropdown.Item href="#action/loginpj">Login P. Jurídica</NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link href="#sobre">Sobre</Nav.Link>
+                    <Nav.Link href="#sobre">Sobre</Nav.Link> */}
 
                 </Nav>
             </Navbar.Collapse>

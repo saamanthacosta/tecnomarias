@@ -7,6 +7,7 @@ import PessoaFisicaService from '../../../../services/PessoaFisicaService';
 import MensagemErro from '../../../common/MensagemErro';
 import Carregando from '../../../common/Carregando';
 import Card from '../../../common/Card'
+import BotaoSimples from '../../../common/Botao/Simples';
 
 export default function ListagemPF() {
     const [pfs, setPfs] = useState(null);
@@ -44,13 +45,22 @@ export default function ListagemPF() {
     }
 
     return <>
-    <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
-        <Container maxWidth="sm">
-        {
+        <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
+        <Container maxWidth="xs">
+            {
                 mensagem && <MensagemErro mensagem={mensagem} />
             }
+            <Container maxWidth="md">
+                <BotaoSimples
+                    variant="contained"
+                    onClick={(e) => history.push(routes.CADASTRAR_PF)}
+                    nome="Criar Pessoa"
+                    cor="primary"
+                />
+            </Container>
             {
                 pfs !== null &&
+
                 pfs.map(
                     pf => {
                         return (

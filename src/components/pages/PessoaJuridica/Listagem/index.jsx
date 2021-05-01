@@ -8,6 +8,7 @@ import PessoaJuridicaService from '../../../../services/PessoaJuridicaService';
 import Card from '../../../common/Card'
 import MensagemErro from '../../../common/MensagemErro';
 import Carregando from '../../../common/Carregando';
+import BotaoSimples from '../../../common/Botao/Simples';
 
 export default function ListagemPJ() {
     const [pjs, setPjs] = useState(null);
@@ -47,10 +48,18 @@ export default function ListagemPJ() {
 
     return <>
         <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
-        <Container maxWidth="sm">
+        <Container maxWidth="xs">
             {
                 mensagem && <MensagemErro mensagem={mensagem} />
             }
+            <Container maxWidth="md">
+                <BotaoSimples
+                    variant="contained"
+                    onClick={(e) => history.push(routes.CADASTRAR_PJ)}
+                    nome="Criar Empresa"
+                    cor="primary"
+                />
+            </Container>
             {
                 pjs !== null &&
                 pjs.map(
