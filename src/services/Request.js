@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 var API = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: "http://tecnomarias.herokuapp.com/api/v1/",
     headers: {
         'Content-Type': 'application/json',
     }
