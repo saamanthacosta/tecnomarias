@@ -10,8 +10,8 @@ import EditarPJ from "./pages/PessoaJuridica/Editar";
 import ExibirPF from "./pages/PessoaFisica/Exibir";
 import ExibirPJ from "./pages/PessoaJuridica/Exibir";
 import ExibirVaga from "./pages/Vagas/Exibir";
-import Header from './common/Header/index.jsx';
-import Rodape from "./common/Rodape";
+import Header from './Header';
+import Rodape from "./Rodape";
 
 import ValidacoesCadastro from '../contexts/ValidacoesCadastro';
 import { validarEmail, validarNome, validarSenha } from '../utils/validadores'
