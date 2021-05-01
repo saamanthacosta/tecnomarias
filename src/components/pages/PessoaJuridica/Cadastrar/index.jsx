@@ -32,7 +32,7 @@ export default function CadastrarPJ() {
         <Container maxWidth="sm">
             <Paper>
                 <Container maxWidth="sm">
-                    <Etapas onSubmit={cadastrar} />
+                    <Etapas onSubmit={cadastrar} mensagem={mensagem} />
                 </Container>
             </Paper>
         </Container>
