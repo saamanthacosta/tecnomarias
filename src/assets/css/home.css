@@ -3,6 +3,12 @@
     text-align: left;
     color: white;
   }
+
+  .img-cover{
+    opacity: 0.35;
+  }
+
+
   
   /* Centered text */
   .centered {
@@ -11,6 +17,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: x-large;
+    text-align: justify;
+    font-weight: bold;
+  }
+
+  .centered-top {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200%;
     text-align: justify;
     font-weight: bold;
   }
