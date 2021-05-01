@@ -6,6 +6,7 @@ import logo4 from "../../assets/imagens/logo-twitter.png";
 import logo5 from "../../assets/imagens/logo-linkedin.png";
 import { Link } from 'react-router-dom';
 import { routes } from '../../config/routes'
+import '../../assets/css/rodape.css'
 
 export default function Rodape() {
     return (
