@@ -16,6 +16,7 @@ export default function Rodape() {
                     <span>Sobre a empresa</span>
                     Somos uma empresa que busca reduzir a desigualdade que existe na área de STEM.
                     Temos como objetivo auxiliar a promover o networking entre mulheres auxiliando-as em seu desenvolvimento profissional.
+                    Oferecemos uma plataforma simples, completa e fácil de usar para que seja possível essa maior integração da área!
                 </p>
 
             </div>

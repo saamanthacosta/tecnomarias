@@ -1,25 +1,24 @@
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
 import { routes } from "../config/routes";
-import CadastrarPF from "./pages/PessoaFisica/Cadastrar";
-import CadastrarPJ from "./pages/PessoaJuridica/Cadastrar";
-import EditarPF from "./pages/PessoaFisica/Editar";
-import EditarPJ from "./pages/PessoaJuridica/Editar";
-import ExibirPF from "./pages/PessoaFisica/Exibir";
-import ExibirPJ from "./pages/PessoaJuridica/Exibir";
-import ExibirVaga from "./pages/Vagas/Exibir";
-import Header from './layout/Header';
-import Rodape from "./layout/Rodape";
-
 import ValidacoesCadastro from '../contexts/ValidacoesCadastro';
 import { validarEmail, validarNome, validarSenha } from '../utils/validadores'
-import ListagemVagas from "./pages/Vagas/Listagem";
-import EditarVaga from "./pages/Vagas/Editar";
-import CadastrarVaga from "./pages/Vagas/Cadastrar";
+import Header from './layout/Header';
+import Rodape from "./layout/Rodape";
 import Page from "./common/Page";
-import ListagemPJ from "./pages/PessoaJuridica/Listagem";
+import Home from "./pages/Home";
+import EditarVaga from "./pages/Vagas/Editar";
+import CadastrarPF from "./pages/PessoaFisica/Cadastrar";
+import EditarPF from "./pages/PessoaFisica/Editar";
 import ListagemPF from "./pages/PessoaFisica/Listagem";
+import ExibirPF from "./pages/PessoaFisica/Exibir";
+import CadastrarPJ from "./pages/PessoaJuridica/Cadastrar";
+import EditarPJ from "./pages/PessoaJuridica/Editar";
+import ListagemPJ from "./pages/PessoaJuridica/Listagem";
+import ExibirPJ from "./pages/PessoaJuridica/Exibir";
+import CadastrarVaga from "./pages/Vagas/Cadastrar";
+import ListagemVagas from "./pages/Vagas/Listagem";
+import ExibirVaga from "./pages/Vagas/Exibir";
 
 const RotasComCabecalhoERodape = () => (
   <>
@@ -49,7 +48,7 @@ const RotasComCabecalhoERodape = () => (
   </>
 )
 
-function App() {
+export default function App() {
   return <>
     <BrowserRouter>
       <Switch >
@@ -58,5 +57,3 @@ function App() {
     </BrowserRouter>
   </>;
 }
-
-export default App;

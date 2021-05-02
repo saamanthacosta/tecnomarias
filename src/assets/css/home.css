@@ -1,0 +1,32 @@
+/* Container holding the image and the text */
+
+body {
+  min-width: fit-content;
+}
+
+.home-img {
+    text-align: left;
+    color: white;
+  }
+
+  
+  /* Centered text */
+  .centered {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: x-large;
+    text-align: justify;
+    font-weight: bold;
+  }
+
+  .centered-top {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200%;
+    text-align: justify;
+    font-weight: bold;
+  }
