@@ -108,6 +108,10 @@ h3{
 	;
 }
 
+.comentario {
+	min-height: 150px;
+}
+
 #feedbacks{
 	margin-top: 50px;
 	margin-bottom: 50px;

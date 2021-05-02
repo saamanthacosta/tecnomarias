@@ -42,7 +42,8 @@ export default function Card({ pj }) {
     }
 
     function tratarMediaAposAvaliacao(nota) {
-        setMediaAvaliacao((pj.mediaAvaliacao + nota) / (pj.avaliacoes.length + 1));
+        let media = pj.mediaAvaliacao === 0 ? nota : (pj.mediaAvaliacao + nota)/(pj.avaliacoes.length + 1)
+        setMediaAvaliacao(media);
     }
 
     const item = (titulo, valor) => <>

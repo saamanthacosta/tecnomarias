@@ -32,7 +32,7 @@ export default function Rodape() {
                 />
                 <br />
                 <p className="footer-links">
-                    <Link to="/" class="link-1">Home</Link>
+                    <Link to="/" className="link-1">Home</Link>
                     <Link to={routes.LISTAR_VAGAS} >Vagas</Link>
                     <Link to={routes.LISTAR_PF} >Cadastros</Link>
                     <Link to={routes.LISTAR_PF} >Conecte-se</Link>

@@ -26,7 +26,7 @@ export default function CardSimples({ titulo, descricao, outrasDescricoes, onCli
     return (
         <Card className={classes.root}>
             <CardContent>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h5" component="h2" align="left">
                     {titulo.toUpperCase()}
                 </Typography>
                 <Typography className={classes.descricao} color="textSecondary">
