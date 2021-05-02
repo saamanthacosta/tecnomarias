@@ -1,13 +1,13 @@
 /* Container holding the image and the text */
+
+body {
+  min-width: fit-content;
+}
+
 .home-img {
     text-align: left;
     color: white;
   }
-
-  .img-cover{
-    opacity: 0.35;
-  }
-
 
   
   /* Centered text */

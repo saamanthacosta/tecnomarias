@@ -60,7 +60,6 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -387,6 +386,11 @@ h6, .h6 {
 }
 
 .lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.lead2 {
   font-size: 1.25rem;
   font-weight: 300;
 }
