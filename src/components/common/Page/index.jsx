@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     pagina: {
         margin: '40px 0px',
         zIndex: theme.zIndex.drawer + 1,
+        backgroundColor: '#ffffff',
         minHeight: tamanhoDaPagina
     },
 }));
