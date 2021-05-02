@@ -1,22 +1,10 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    pagina: {
-        margin: '40px 0px',
-        zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: '#ffffff',
-        minHeight: tamanhoDaPagina
-    },
-}));
-
-const tamanhoDaPagina = window.innerHeight - 382
+import '../../../assets/css/pagina.css'
 
 export default function Page({ children }) {
 
-    const classes = useStyles();
     return (
-        <div className={classes.pagina}>
+        <div className="pagina" id="pagina" style={{minHeight: window.innerHeight - 320}}>
             {children}
         </div>
     )
