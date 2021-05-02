@@ -6,6 +6,7 @@ import home_img from "../../../assets/imagens/home-img.png";
 import background_img from "../../../assets/imagens/background-img.PNG";
 import cad_pf from "../../../assets/imagens/mulheres.png";
 import cad_pj from "../../../assets/imagens/empresa.png";
+import fb from "../../../assets/imagens/fb.png";
 
 export default function Home() {
     return (
@@ -50,10 +51,10 @@ export default function Home() {
 
             <div id="cad-pj" class="row featurette">
                 <div class="col-md-8 order-md-2">
-                    <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2>
+                    <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2><br/>
                     <p class="lead2">Empresas podem cadastrar suas vagas em nosso site, divulgando-as para o público feminino, aumentando seu público alvo e diminuindo a desigualdade de gêneros.</p>
                     <p class="lead2">Além desta incrível oportunidade de ter uma plataforma para cadastrar e divulgar suas vagas, as empresas contam com um ambiente no qual podem ser avaliadas.</p>
-                    <input id="btn-cad-pf" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
+                    <input id="btn-cad-pj" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
                 </div>
                 <div class="col-md-4 order-md-2">
                     <img id="img-pj" class="img-pj"
@@ -66,7 +67,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <hr class="featurette-divider" />
+            <hr id="cad-pf-line" class="featurette-divider" />
 
             <h1 id="comentarios">Feedbacks</h1>
 
@@ -78,7 +79,7 @@ export default function Home() {
                         A TecnoMarias realmente fez um diferencial na minha carreira profissional!"
                             </blockquote>
                         <div class="author">
-                            <img src={background_img} alt="sq-sample1" />
+                            <img src={fb} alt="sq-sample1" />
                             <h5>Rafaela Almeida, 42 <span> Gerente de Projetos</span></h5>
                         </div>
                     </figure>
@@ -88,7 +89,7 @@ export default function Home() {
                     <figure class="snip1192">
                         <blockquote>Gostaria de agradecer aos instrutores e toda equipe da TecnoMarias, sem eles eu jamais conseguiria reunir tantas mulheres competentes e profissionais dedicadas para melhorar meu networking nessa jornada mágica.</blockquote>
                         <div class="author">
-                            <img src={background_img} alt="sq-sample24" />
+                            <img src={fb} alt="sq-sample24" />
                             <h5>Beatriz Silvestre, 36<span> Professora de Física</span></h5>
                         </div>
                     </figure>
@@ -99,7 +100,7 @@ export default function Home() {
                         <blockquote>Com o networking proporcionado pela plataforma da TecnoMarias eu consegui realizar um sólido networking, pesquisar várias vagas de emprego e conseguir minha vaga de diretora em uma grande empresa de atuação internacional.
                             </blockquote>
                         <div class="author">
-                            <img src={background_img} alt="sq-sample29" />
+                            <img src={fb} alt="sq-sample29" />
                             <h5>Antonieta Almeida, 22<span> Diretora de TI</span></h5>
                         </div>
                     </figure>
