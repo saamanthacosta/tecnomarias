@@ -67,7 +67,7 @@ export default function Etapas({ dados = null, onSubmit, mensagem }) {
                     <StepLabel>Login</StepLabel>
                 </Step>
                 <Step onClick={voltarParaEtapaEspecifica(1)}>
-                    <StepLabel>A Empresa</StepLabel>
+                    <StepLabel>Empresa</StepLabel>
                 </Step>
                 <Step onClick={voltarParaEtapaEspecifica(2)}>
                     <StepLabel>Endereço</StepLabel>

@@ -38,7 +38,7 @@ export default function DadosUsuario({ aoEnviar, dados }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-            <Box component="span" m={25}>
+            <Box component="span" m={20}>
                 <BotaoSimples
                     type="submit"
                     variant="contained"

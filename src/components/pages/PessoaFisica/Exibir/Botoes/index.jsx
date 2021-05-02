@@ -10,7 +10,7 @@ export default function Botoes({ id }) {
     const history = useHistory();
 
     return (
-        <Box component="span" m={13}>
+        <Box component="span" m={15}>
             <BotaoSimples
                 variant="outlined"
                 onClick={(e) => history.goBack()}

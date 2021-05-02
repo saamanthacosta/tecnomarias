@@ -147,7 +147,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
                 required={true}
                 opcoes={PorteEmpresa}
             />
-            <Box component="span" m={20}>
+            <Box component="span" m={15}>
                 <BotaoSimples
                     variant="outlined"
                     onClick={voltar}

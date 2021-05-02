@@ -73,7 +73,7 @@ export default function DadosLinks({ aoEnviar, voltar, paginaDeExibir, dados }) 
                 />
                 {
                     (!paginaDeExibir) &&
-                    <Box component="span" m={20}>
+                    <Box component="span" m={15}>
                         <BotaoSimples
                             variant="outlined"
                             onClick={voltar}

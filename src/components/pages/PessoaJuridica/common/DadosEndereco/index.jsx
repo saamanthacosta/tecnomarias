@@ -142,7 +142,7 @@ export default function DadosEndereco({ aoEnviar, voltar, paginaDeExibir, dados 
                             value={endereco.bairro}
                             onChange={onChangeEndereco('bairro')}
                         />
-                        <Box component="span" m={20}>
+                        <Box component="span" m={15}>
                             <BotaoSimples
                                 variant="outlined"
                                 onClick={voltar}

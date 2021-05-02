@@ -102,7 +102,7 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
                 type="text"
                 label="Telefone Comercial"
             />
-            <Box component="span" m={20}>
+            <Box component="span" m={15}>
                 <BotaoSimples
                     variant="outlined"
                     onClick={voltar}
