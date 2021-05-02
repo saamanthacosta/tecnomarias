@@ -6,6 +6,10 @@ body {
 	background-color: black;
 }
 
+#mybody{
+	background-color: black;
+}
+
 .row {
 	margin-top: 30px;
 	margin-bottom: 50px;
@@ -93,7 +97,7 @@ h1 {
 
 #feedbacks{
 	margin-top: 50px;
-	margin-bottom: 25px;
+	margin-bottom: 50px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -194,6 +198,7 @@ figure.snip1192 .author h5 span {
 	font-weight: 400;
 	text-transform: none;
 	display: block;
+	margin-bottom: 40px;
 }
 
 
@@ -434,10 +439,10 @@ figure.snip1192 .author h5 span {
   }
 
   #img-pj{
-	margin-left: 60px;
+	margin-left: 5px;
 	border: 1px solid white;
 	border-radius: 5px;
-	width: 100%;
+	width: 80%;
 	height: 100%;
 }
 

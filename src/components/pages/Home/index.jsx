@@ -9,7 +9,7 @@ import cad_pj from "../../../assets/imagens/empresa.png";
 
 export default function Home() {
     return (
-        <body>
+        <body id="mybody">
             <div class="home-img">
                 <img class="img-cover"
                     alt="home-img"
@@ -56,7 +56,7 @@ export default function Home() {
                     <input id="btn-cad-pf" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
                 </div>
                 <div class="col-md-4 order-md-2">
-                    <img id="cad-pj" class="img-pj"
+                    <img id="img-pj" class="img-pj"
                         alt="cad-pj"
                         src={cad_pj}
                         width="300px"
