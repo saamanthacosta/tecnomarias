@@ -18,16 +18,16 @@ export default function ListagemPF() {
     useEffect(() => {
         if (pfs === null) {
             PessoaFisicaService.listar().then(
-                resposta => tratarPfs(resposta)
+                resposta => {
+                    tratarPfs(resposta)
+                    setCarregando(false)
+                }
             ).catch(
                 erro => {
                     setMensagem("Não foi possível listar as pessoas físicas.")
+                    setCarregando(false)
                 }
             )
-        }
-        if (pfs !== null) {
-            setCarregando(false)
-
         }
     }, [pfs]);
 

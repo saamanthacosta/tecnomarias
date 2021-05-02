@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const tamanhoDaPagina = window.innerHeight - 300
+const tamanhoDaPagina = window.innerHeight - 382
 
 export default function Page({ children }) {
 

@@ -10,12 +10,16 @@ import Paper from '../../../common/Paper';
 import Etapas from '../common/Etapas';
 import { Link } from 'react-router-dom';
 import { routes } from '../../../../config/routes';
+import MensagemErro from '../../../common/MensagemErro';
+import Carregando from '../../../common/Carregando';
 
 export default function EditarPF() {
 
     const { id } = useParams()
     const [pf, setPf] = useState(null);
     const [mensagem, setMensagem] = useState(null)
+    const [mensagemErro, setMensagemErro] = useState(null)
+    const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
         if (pf === null) {
@@ -23,6 +27,12 @@ export default function EditarPF() {
                 resposta => {
                     let pessoaFisica = new PessoaFisica(resposta.id, resposta.nome, resposta.email, resposta.telefoneList, resposta.links)
                     setPf(pessoaFisica)
+                    setCarregando(false)
+                }
+            ).catch(
+                erro => {
+                    setMensagemErro("Não foi possível exibir a tela de edição dessa pessoa.")
+                    setCarregando(false)
                 }
             )
         }
@@ -44,7 +54,11 @@ export default function EditarPF() {
     }
 
     return <>
+    <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
         <Container maxWidth="sm">
+        {
+                mensagemErro && <MensagemErro mensagem={mensagemErro} />
+            }
             <Paper>
                 <Container maxWidth="sm">
                     {

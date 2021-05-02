@@ -5,11 +5,15 @@ import Vaga from '../../../../models/entities/Vaga';
 import Card from './Card'
 import { Container } from '@material-ui/core';
 import Botoes from './Botoes';
+import Carregando from '../../../common/Carregando';
+import MensagemErro from '../../../common/MensagemErro';
 
 export default function ExibirVaga() {
 
     const { id } = useParams()
     const [vaga, setVaga] = useState(null);
+    const [mensagemErro, setMensagemErro] = useState(null)
+    const [carregando, setCarregando] = useState(false);
 
     useEffect(() => {
         function tratarVaga(resposta) {
@@ -26,18 +30,32 @@ export default function ExibirVaga() {
         }
         if (vaga === null) {
             VagaService.buscar(id).then(
-                resposta => tratarVaga(resposta)
+                resposta => {
+                    tratarVaga(resposta)
+                    setCarregando(false)
+                }
+            ).catch(
+                erro => {
+                    setMensagemErro("Não foi possível exibir essa vagas.")
+                    setCarregando(false)
+                }
             )
         }
     }, [vaga, id])
 
     return <>
-        {
-            vaga !== null &&
-            <Container maxWidth="sm">
-                <Card vaga={vaga} />
-                <Botoes id={id} />
-            </Container>
-        }
+        <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
+        <Container maxWidth="sm">
+            {
+                mensagemErro && <MensagemErro mensagem={mensagemErro} />
+            }
+            {
+                vaga !== null &&
+                <>
+                    <Card vaga={vaga} />
+                    <Botoes id={id} />
+                </>
+            }
+        </Container>
     </>
 }

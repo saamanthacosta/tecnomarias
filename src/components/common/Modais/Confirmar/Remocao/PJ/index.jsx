@@ -11,6 +11,7 @@ export default function ConfirmarRemoçãoPJ({ id }) {
 
   const [mensagem, setMensagem] = useState("Essa ação é definitiva e não tem como ser desfeita. ");
   const [carregando, setCarregando] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const conteudoModal = <>
     <DialogContentText>
@@ -39,6 +40,7 @@ export default function ConfirmarRemoçãoPJ({ id }) {
   }
 
   function confirmar() {
+    setDisabled(true);
     setCarregando(true);
     PessoaJuridicaService.remover(id).then(
       resposta => {
@@ -58,6 +60,6 @@ export default function ConfirmarRemoçãoPJ({ id }) {
   return <>
   
   <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
-    <Modal modal={modal} />
+    <Modal modal={modal} botaoPrincipalDisabled={disabled} />
   </>;
 }

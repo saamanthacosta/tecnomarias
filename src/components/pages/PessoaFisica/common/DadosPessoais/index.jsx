@@ -6,11 +6,12 @@ import ValidacoesCadastro from "../../../../../contexts/ValidacoesCadastro";
 import useErros from '../../../../../hooks/useErros'
 import InputMascara from "../../../../common/Input/Mascara";
 import Telefone from "../../../../../models/entities/Telefone";
+import { vaziaOuNull } from "../../../../../utils/vaziaOuNull";
 
 export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados }) {
     const formRef = useRef();
     const [nome, setNome] = useState("");
-    const [telefoneList, setTelefones] = useState([
+    const [telefones, setTelefones] = useState([
         new Telefone(null, '', '', ''),
         new Telefone(null, '', '', ''),
         new Telefone(null, '', '', '')
@@ -19,25 +20,27 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
     const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
     useEffect(() => {
-        if (dados) {
+        if (dados && nome === "") {
             setNome(dados.nome);
             if (dados.telefoneList !== null) {
-                if (dados.telefoneList[0] !== null) {
-                    setTelefones({ ...telefoneList, 0: dados.telefoneList[0] })
+                if (!vaziaOuNull(dados.telefoneList[0])) {
+                    setTelefones({ ...telefones, 0: dados.telefoneList[0] })
                 }
-                if (dados.telefoneList[1] !== null) {
-                    setTelefones({ ...telefoneList, 1: dados.telefoneList[0] })
+                if (!vaziaOuNull(dados.telefoneList[1])) {
+                    setTelefones({ ...telefones, 1: dados.telefoneList[0] })
                 }
-                if (dados.telefoneList[2] !== null) {
-                    setTelefones({ ...telefoneList, 2: dados.telefoneList[0] })
+                if (!vaziaOuNull(dados.telefoneList[2])) {
+                    setTelefones({ ...telefones, 2: dados.telefoneList[0] })
                 }
             }
         }
-    }, [dados, telefoneList]);
+    }, [dados, telefones]);
 
     function proximo(event) {
         event.preventDefault();
         if (formRef.current.reportValidity() && possoEnviar()) {
+            let telefoneList = [];
+            telefoneList.push(telefones[0], telefones[1], telefones[2])
             aoEnviar({ nome, telefoneList })
         }
     }
@@ -45,16 +48,16 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
     const onChangeTelefone = (prop) => (event) => {
         const { value } = event.target;
         let telefone = null;
-        dados ? telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
-            : telefone = converterTelefone(value, null, null)
-        setTelefones({ ...telefoneList, [prop]: telefone })
+        dados ? telefone = converterTelefone(value, telefones[prop].id)
+            : telefone = converterTelefone(value, null);
+        setTelefones({ ...telefones, [prop]: telefone })
     }
 
-    function converterTelefone(valor, id, idPessoa) {
+    function converterTelefone(valor, id) {
         let ddi = valor.substring(1, 3);
         let ddd = valor.substring(5, 7);
         let numero = valor.substring(9, 19);
-        return new Telefone(id, ddi, ddd, numero, idPessoa)
+        return new Telefone(id, ddi, ddd, numero)
     }
 
     function tratarTelefone(telefone) {
@@ -78,7 +81,7 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
             <InputMascara
                 mascara="+99 (99) 9999-9999"
                 exibirSempre={true}
-                value={ tratarTelefone(telefoneList[0])}
+                value={ tratarTelefone(telefones[0])}
                 onChange={onChangeTelefone(0)}
                 type="text"
                 label="Telefone Residencial"
@@ -88,13 +91,13 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
                 exibirSempre={true}
                 type="text"
                 label="Telefone Celular"
-                value={tratarTelefone(telefoneList[1])}
+                value={tratarTelefone(telefones[1])}
                 onChange={onChangeTelefone(1)}
             />
             <InputMascara
                 mascara="+99 (99) 99999-9999"
                 exibirSempre={true}
-                value={tratarTelefone(telefoneList[2])}
+                value={tratarTelefone(telefones[2])}
                 onChange={onChangeTelefone(2)}
                 type="text"
                 label="Telefone Comercial"

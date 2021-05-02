@@ -19,16 +19,16 @@ export default function ListagemPJ() {
     useEffect(() => {
         if (pjs === null) {
             PessoaJuridicaService.listar().then(
-                resposta => tratarPjs(resposta)
+                resposta => {
+                    tratarPjs(resposta)
+                    setCarregando(false)
+                }
             ).catch(
                 erro => {
-                    setMensagem("Não foi possível exibir esse perfil.")
+                    setMensagem("Não foi possível listar as empresas.")
+                    setCarregando(false)
                 }
             )
-        }
-        if (pjs !== null) {
-            setCarregando(false)
-
         }
     }, [pjs]);
 

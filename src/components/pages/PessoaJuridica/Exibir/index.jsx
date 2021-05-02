@@ -31,7 +31,7 @@ export default function ExibirPJ() {
                 }
             ).catch(
                 erro => {
-                    setMensagem("Não foi possível exibir esse perfil.")
+                    setMensagem("Não foi possível exibir essa empresa.")
                     setCarregando(false)
                 }
             )

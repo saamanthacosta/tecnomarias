@@ -21,16 +21,14 @@ export default function ExibirPF() {
                 resposta => {
                     let pessoaFisica = new PessoaFisica(resposta.id, resposta.nome, resposta.email, resposta.telefoneList, resposta.links)
                     setPf(pessoaFisica)
+                    setCarregando(false)
                 }
             ).catch(
                 erro => {
-                    setMensagem("Não foi possível exibir esse perfil.")
+                    setMensagem("Não foi possível exibir essa pessoa.")
+                    setCarregando(false)
                 }
             )
-        }
-        if (pf !== null) {
-            setCarregando(false)
-
         }
     }, [pf, id])
 

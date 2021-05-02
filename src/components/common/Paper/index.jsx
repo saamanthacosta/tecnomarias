@@ -3,7 +3,7 @@ import { Paper } from '@material-ui/core'
 
 export default function Papel({children}) {
     return (
-        <Paper elevation={5} style={{padding: '10px'}}>
+        <Paper elevation={5} style={{padding: '10px', margin: '20px'}}>
             {children}
         </Paper>
     )

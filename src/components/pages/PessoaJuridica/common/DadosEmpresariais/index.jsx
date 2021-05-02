@@ -6,6 +6,7 @@ import { Box } from "@material-ui/core";
 import { PorteEmpresa } from '../../../../../models/enums/PorteEmpresa';
 import InputMascara from "../../../../common/Input/Mascara";
 import Telefone from "../../../../../models/entities/Telefone";
+import { vaziaOuNull } from "../../../../../utils/vaziaOuNull";
 
 export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
     const formRef = useRef();
@@ -13,7 +14,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
     const [cnpj, setCnpj] = useState("");
     const [cnpjInput, setCnpjInput] = useState("");
     const [site, setSite] = useState("");
-    const [telefoneList, setTelefones] = useState([
+    const [telefones, setTelefones] = useState([
         new Telefone(null, '', '', ''),
         new Telefone(null, '', '', '')
     ])
@@ -23,7 +24,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
     const [descricao, setDescricao] = useState("");
 
     useEffect(() => {
-        if (dados) {
+        if (dados && nome === "") {
             setNome(dados.nome);
             setCnpj(dados.cnpj);
             setCnpjInput(dados.cnpj);
@@ -33,39 +34,41 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
             setArea(dados.areaAtuacao);
             setDescricao(dados.descricao);
             if (dados.telefoneList !== null) {
-                if (dados.telefoneList[0] !== null) {
-                    setTelefones({ ...telefoneList, 0: dados.telefoneList[0] })
+                if (!vaziaOuNull(dados.telefoneList[0])) {
+                    setTelefones({ ...telefones, 0: dados.telefoneList[0] })
                 }
-                if (dados.telefoneList[1] !== null) {
-                    setTelefones({ ...telefoneList, 1: dados.telefoneList[0] })
+                if (!vaziaOuNull(dados.telefoneList[1])) {
+                    setTelefones({ ...telefones, 1: dados.telefoneList[0] })
                 }
             }
         }
-    }, [dados, telefoneList]);
+    }, [dados, telefones]);
 
 
     function proximo(event) {
         event.preventDefault();
+        let telefoneList = [];
+            telefoneList.push(telefones[0], telefones[1])
         aoEnviar({ nome, cnpj, site, porteEmpresa, areaAtuacao, descricao, telefoneList });
     }
 
     const onChangeTelefone = (prop) => (event) => {
         const { value } = event.target;
         let telefone = null;
-        dados ? telefone = converterTelefone(value, telefoneList[prop].id, dados.id)
-            : telefone = converterTelefone(value, null, null)
-        setTelefones({ ...telefoneList, [prop]: telefone })
+        dados ? telefone = converterTelefone(value, telefones[prop].id)
+            : telefone = converterTelefone(value, null)
+        setTelefones({ ...telefones, [prop]: telefone })
     }
 
     function tratarTelefone(telefone) {
         return `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
     }
 
-    function converterTelefone(valor, id, idPessoa) {
+    function converterTelefone(valor, id) {
         let ddi = valor.substring(1, 3);
         let ddd = valor.substring(5, 7);
         let numero = valor.substring(9, 19);
-        return new Telefone(id, ddi, ddd, numero, idPessoa)
+        return new Telefone(id, ddi, ddd, numero)
     }
 
     function onChangeCnpj(event) {
@@ -107,7 +110,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
             <InputMascara
                 mascara="+99 (99) 9999-9999"
                 exibirSempre={true}
-                value={tratarTelefone(telefoneList[0])}
+                value={tratarTelefone(telefones[0])}
                 onChange={onChangeTelefone(0)}
                 type="text"
                 label="Telefone Principal"
@@ -115,7 +118,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
             <InputMascara
                 mascara="+99 (99) 99999-9999"
                 exibirSempre={true}
-                value={tratarTelefone(telefoneList[1])}
+                value={tratarTelefone(telefones[1])}
                 onChange={onChangeTelefone(1)}
                 type="text"
                 label="Telefone Secundário"

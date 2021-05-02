@@ -19,7 +19,6 @@ export default function Filtro({ tratarVagas }) {
     const [tipoFiltro, setTipoFiltro] = useState('areaAtuacao');
     const [area, setArea] = useState(null);
     const [cargo, setCargo] = useState(null);
-    const [cargoInput, setCargoInput] = useState(null);
 
     useEffect(() => {
         LocalidadesService.listarEstados().then(
@@ -48,7 +47,7 @@ export default function Filtro({ tratarVagas }) {
                 valor = area
                 break;
             case TipoFiltro[1].id:
-                valor = cargo
+                valor = cargo.id
                 break;
             case TipoFiltro[2].id:
                 valor = estado.nome
@@ -98,10 +97,10 @@ export default function Filtro({ tratarVagas }) {
                             (tipoFiltro === TipoFiltro[1].id) &&
                             <InputSelect
                                 label="Cargo"
-                                value={cargoInput}
+                                value={cargo}
                                 opcoes={Cargo}
                                 textoDeAjuda="Selecione um cargo"
-                                onChange={(event, newValue) => { setCargo(newValue.id); setCargoInput(newValue) }}
+                                onChange={(event, newValue) => setCargo(newValue)}
                             />
                         }
                         {

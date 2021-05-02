@@ -18,11 +18,7 @@ export default function Card({ pj }) {
 
     useEffect(() => {
         if (pj !== null) {
-            let media = 0;
-            pj.avaliacoes.forEach(avaliacao => {
-                media += avaliacao.nota
-            })
-            setMediaAvaliacao(media / pj.avaliacoes.length);
+            setMediaAvaliacao(pj.mediaAvaliacao)
 
             LocalidadesService.buscarMunicipio(pj.endereco.municipioIBGE).then(
                 resposta => setMunicipio(resposta.data.nome)
@@ -32,7 +28,7 @@ export default function Card({ pj }) {
 
     function avaliar(nota) {
         setAvaliacaoReadOnly(true)
-        let avaliacao = new Avaliacao(null, "N/A", nota, null, null, pj.id)
+        let avaliacao = new Avaliacao(null, null, nota, null, null, pj.id)
         PessoaJuridicaService.avaliar(pj.id, avaliacao).then(
             resposta => {
                 setMensagem(<Alerta tipo={Severidade.SUCESSO} mensagem="A avaliação foi realizada com sucesso!" />);
@@ -46,11 +42,7 @@ export default function Card({ pj }) {
     }
 
     function tratarMediaAposAvaliacao(nota) {
-        var novaMediaAvaliacao = nota;
-        pj.avaliacoes.forEach(avaliacao => {
-            novaMediaAvaliacao += avaliacao.nota
-        })
-        setMediaAvaliacao(novaMediaAvaliacao / (pj.avaliacoes.length + 1));
+        setMediaAvaliacao((pj.mediaAvaliacao + nota) / (pj.avaliacoes.length + 1));
     }
 
     const item = (titulo, valor) => <>

@@ -50,7 +50,7 @@ const Titulo = withStyles(styles)((props) => {
   </>;
 });
 
-export default function Modal({ modal }) {
+export default function Modal({ modal, botaoPrincipalDisabled }) {
   const [aberto, setAberto] = React.useState(false);
 
   function abrir() {
@@ -95,6 +95,7 @@ export default function Modal({ modal }) {
           nome={modal.botao.acaoPrincipal.nome}
           onClick={modal.botao.acaoPrincipal.funcao}
           cor={modal.botao.acaoPrincipal.cor}
+          disabled={botaoPrincipalDisabled}
         />
       </DialogActions>
     </Dialog>

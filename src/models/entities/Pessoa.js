@@ -14,10 +14,10 @@ export default class Pessoa {
     }
 }
 
-function verificarTelefone(telefoneList, id) {
+function verificarTelefone(telefoneList) {
     var telefones = verificarSeTelefonesEstaNulo(telefoneList)
     if (telefones !== null) {
-        telefones = converterTelefone(telefones, id)
+        telefones = converterTelefone(telefones)
     }
     return telefones;
 }
@@ -41,7 +41,7 @@ function verificarSeTelefonesEstaNulo(telefones) {
     return estaNulo ? null : telefones
 }
 
-function converterTelefone(telefones, id) {
+function converterTelefone(telefones) {
     let lista = [];
     let estruturaInicial = [
         "+ () ",
@@ -50,8 +50,8 @@ function converterTelefone(telefones, id) {
     ]
     telefones.forEach(telefone => {
         let telefoneCompleto = `+${telefone.ddi} (${telefone.ddd}) ${telefone.numero}`
-        if (telefoneCompleto !== estruturaInicial) {
-            let novoTelefone = new Telefone(telefone.id, telefone.ddi, telefone.ddd, telefone.numero, id);
+        if (!estruturaInicial.includes(telefoneCompleto)) {
+            let novoTelefone = new Telefone(telefone.id, telefone.ddi, telefone.ddd, telefone.numero);
             lista.push(novoTelefone)
         }
     });
