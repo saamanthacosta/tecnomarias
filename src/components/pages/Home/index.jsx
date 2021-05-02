@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import "../../../assets/css/home.css";
 import "../../../assets/css/bootstrap.css";
 import "../../../assets/css/jj.css";
@@ -6,46 +6,15 @@ import home_img from "../../../assets/imagens/home-img.png";
 import background_img from "../../../assets/imagens/background-img.PNG";
 import cad_pf from "../../../assets/imagens/mulheres.png";
 import cad_pj from "../../../assets/imagens/empresa.png";
-import fb from "../../../assets/imagens/fb.png";
-import FeedbackService from '../../../services/FeedbackService';
-import PessoaFisicaService from '../../../services/PessoaFisicaService';
-import Feedback from '../../../models/entities/Feedback';
-import Carregando from '../../common/Carregando';
-import MensagemErro from '../../common/MensagemErro'
+import agil from "../../../assets/imagens/agil.png";
+import net from "../../../assets/imagens/net.png";
+import rocket from "../../../assets/imagens/rocket.png";
+import Feedbacks from './Feedbacks';
+import { Link } from 'react-router-dom';
+import { routes } from '../../../config/routes';
 
 export default function Home() {
-    const [feedbacks, setFeedbacks] = useState(null);
-    const [carregando, setCarregando] = useState(true);
-    const [mensagemErro, setMensagemErro] = useState(null);
-
-    useEffect(() => {
-        if (feedbacks === null) {
-            FeedbackService.buscar().then(
-                listaFeedbacks => {
-                    let lista = []
-                    listaFeedbacks.forEach(feedback => {
-                        PessoaFisicaService.buscar(feedback.idAvaliadora).then(
-                            pf => {
-                                let novoFeedback = new Feedback(feedback.id, feedback.comentario, pf.nome)
-                                lista.push(novoFeedback)
-                            }
-                        )
-                        setFeedbacks(lista)
-                        setCarregando(false)
-                    })
-                }
-            ).catch(
-                erro => {
-                    setMensagemErro("Não foi possível exibir os feedbacks.")
-                    setCarregando(false)
-                }
-            )
-        }
-    })
-
     return <>
-
-        <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
         <body id="mybody">
             <div class="home-img">
                 <img class="img-cover"
@@ -63,14 +32,14 @@ export default function Home() {
 
             </div>
 
-
-
             <div id="cad-pf" class="row featurette">
                 <div class="col-md-7 order-md-2">
                     <h2 class="featurette-heading">Conecte-se <span class="text-muted">com outras mulheres</span></h2>
                     <p class="lead">Oferecemos um espaço para conectar mulheres com outras mulheres, estimulando o networking na área de STEM- Science, Technology, Engineering e Mathematics.</p>
                     <p class="lead">Aqui você irá encontrar diversas funcionalidades que permitirão que você aumente seu networking e ainda possa se desenvolver ainda mais e tudo isso de graça!</p>
-                    <input id="btn-cad-pf" class="btn btn-outline-primary btn-lg" type="button" value="Faça seu cadastro!"></input>
+                    <Link to={routes.CADASTRAR_PF}>
+                        <input id="btn-cad-pf" class="btn btn-outline-primary btn-lg" type="button" value="Faça seu cadastro!"></input>
+                    </Link>
                 </div>
                 <div class="col-md-4 order-md-1">
                     <img id="img-pf" class="img-pf"
@@ -90,7 +59,9 @@ export default function Home() {
                     <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2><br />
                     <p class="lead2">Empresas podem cadastrar suas vagas em nosso site, divulgando-as para o público feminino, aumentando seu público alvo e diminuindo a desigualdade de gêneros.</p>
                     <p class="lead2">Além desta incrível oportunidade de ter uma plataforma para cadastrar e divulgar suas vagas, as empresas contam com um ambiente no qual podem ser avaliadas.</p>
-                    <input id="btn-cad-pj" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
+                    <Link to={routes.CADASTRAR_PJ}>
+                        <input id="btn-cad-pj" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
+                    </Link>
                 </div>
                 <div class="col-md-4 order-md-2">
                     <img id="img-pj" class="img-pj"
@@ -105,30 +76,34 @@ export default function Home() {
 
             <hr id="cad-pf-line" class="featurette-divider" />
 
+            <h1 id="comentarios">TUDO PARA ELAS <br /></h1>
+            <h3>Para conectar mulheres com outras mulheres <br />Encontre aqui uma empresa que valorize seu trabalho</h3>
+
+            <div class="wrapper">
+                <section class="columns">
+                    <div class="column">
+                        <img class="img-cols" src={net} />
+                        <h2>Netwoking</h2>
+                        <p class="cols">Compartilhe seu agregador de links com suas redes sociais, portfolios, projetos pessoais, curriculos, entre outros itens para realizar a sua divulgação profissional e assim amplie suas possibilidades no mercado.</p>
+                    </div>
+                    <div class="column">
+                        <img class="img-cols" src={rocket} />
+                        <h2>Vagas</h2>
+                        <p class="cols">Decole com vagas em empresas que dão voz as mulheres, contribuindo para o seu desenvolvimento pessoal e profissional em um ambiente saudável que trará diversos ganhos para ambas as partes.</p>
+                    </div>
+                    <div class="column">
+                        <img class="img-cols" src={agil} />
+                        <h2>Agilidade</h2>
+                        <p class="cols">Agilidade para empresas e para mulheres que buscam se conectar, cadastros simples e sem burocracia para ambas as partes aproveitarem o máximo de poder da plataforma oferecida pela TecnoMarias. ❤</p>
+                    </div>
+                </section>
+            </div>
+
+            <hr id="cad-pf-line" class="featurette-divider" />
+
             <h1 id="comentarios">Feedbacks</h1>
-
             <div id="feedbacks" class="row">
-
-                {
-                    mensagemErro && <MensagemErro mensagem={mensagemErro} />
-                }
-                {
-                    feedbacks !== null &&
-                    feedbacks.map(feedback => {
-                        return (
-                            <div class="col-lg-4" key={feedback.id}>
-                                <figure class="snip1192">
-                                    <blockquote>"{feedback.comentario}"
-                            </blockquote>
-                                    <div class="author">
-                                        <img src={fb} alt="sq-sample1" />
-                                        <h5>{feedback.nomeAvaliadora} <span> Gerente de Projetos</span></h5>
-                                    </div>
-                                </figure>
-                            </div>
-                        )
-                    })
-                }
+                <Feedbacks />
             </div>
         </body>
     </>

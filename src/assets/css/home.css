@@ -30,3 +30,48 @@ body {
     text-align: justify;
     font-weight: bold;
   }
+  
+  /* STRUCTURE */
+  
+  .wrapper {
+    padding: 5px;
+    max-width: 960px;
+    width: 95%;
+    margin: 20px auto;
+    margin-bottom: 15px;
+    color: rgb(255, 255, 255);
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: -10px;
+  }
+  
+  .columns {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 5px 0;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .column {
+    flex: 1;
+    border: 2px solid rgb(27, 0, 179);
+    border-radius: 5px;
+    margin: 25px;
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .cols{
+    text-align: justify;
+    margin-top: 25px;
+  }
+
+  .img-cols{
+    text-align: center;
+    width: 102px;
+    height: 102px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+  }
