@@ -51,7 +51,7 @@ export default function Home() {
 
             <div id="cad-pj" class="row featurette">
                 <div class="col-md-8 order-md-2">
-                    <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2><br/>
+                    <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2><br />
                     <p class="lead2">Empresas podem cadastrar suas vagas em nosso site, divulgando-as para o público feminino, aumentando seu público alvo e diminuindo a desigualdade de gêneros.</p>
                     <p class="lead2">Além desta incrível oportunidade de ter uma plataforma para cadastrar e divulgar suas vagas, as empresas contam com um ambiente no qual podem ser avaliadas.</p>
                     <input id="btn-cad-pj" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
@@ -65,6 +65,37 @@ export default function Home() {
                         className="d-inline-block align-top"
                     />
                 </div>
+            </div>
+
+            <hr id="cad-pf-line" class="featurette-divider" />
+
+            <h1 id="comentarios">TUDO PARA ELAS <br/></h1>
+            <h3>Para conectar mulheres com outras mulheres <br/>Encontre aqui uma empresa que valorize seu trabalho</h3>
+
+            <div class="wrapper">
+
+                <section class="columns">
+
+                    <div class="column">
+                        <img class="img-cols" src={fb}/>
+                        <h2>Netwoking</h2>
+                        <p class="cols">Compartilhe seu agregador de links com suas redes sociais, portfolios, projetos pessoais, curriculos, entre outros itens para realizar a sua divulgação profissional e assim amplie suas possibilidades no mercado.</p>
+                    </div>
+
+                    <div class="column">
+                        <img class="img-cols" src={fb}/>
+                        <h2>Vagas</h2>
+                        <p class="cols">Encontre vagas em empresas que dão voz as mulheres, contribuindo para o seu desenvolvimento pessoal e profissional em um ambiente saudável que trará diversos ganhos para ambas as partes.</p>
+                    </div>
+
+                    <div class="column">
+                        <img class="img-cols" src={fb}/>
+                        <h2>Agilidade</h2>
+                        <p class="cols">Agilidade para empresas e para mulheres que buscam se conectar, cadastros simples e sem burocracia para ambas as partes aproveitarem o máximo de poder da plataforma oferecida pela TecnoMarias. ❤</p>
+                    </div>
+
+                </section>
+
             </div>
 
             <hr id="cad-pf-line" class="featurette-divider" />
