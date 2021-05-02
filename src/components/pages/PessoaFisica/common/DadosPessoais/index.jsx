@@ -34,7 +34,7 @@ export default function DadosPessoais({ aoEnviar, voltar, paginaDeExibir, dados 
                 }
             }
         }
-    }, [dados, telefones]);
+    }, [dados, telefones, nome]);
 
     function proximo(event) {
         event.preventDefault();

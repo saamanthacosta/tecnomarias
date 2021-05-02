@@ -42,7 +42,7 @@ export default function DadosEmpresariais({ aoEnviar, voltar, dados }) {
                 }
             }
         }
-    }, [dados, telefones]);
+    }, [dados, telefones, nome]);
 
 
     function proximo(event) {

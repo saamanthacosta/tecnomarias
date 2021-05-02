@@ -1,15 +1,51 @@
-import React from 'react';
-import css from "../../../assets/css/home.css";
-import css2 from "../../../assets/css/bootstrap.css";
-import css3 from "../../../assets/css/jj.css";
+import React, { useEffect, useState } from 'react';
+import "../../../assets/css/home.css";
+import "../../../assets/css/bootstrap.css";
+import "../../../assets/css/jj.css";
 import home_img from "../../../assets/imagens/home-img.png";
 import background_img from "../../../assets/imagens/background-img.PNG";
 import cad_pf from "../../../assets/imagens/mulheres.png";
 import cad_pj from "../../../assets/imagens/empresa.png";
 import fb from "../../../assets/imagens/fb.png";
+import FeedbackService from '../../../services/FeedbackService';
+import PessoaFisicaService from '../../../services/PessoaFisicaService';
+import Feedback from '../../../models/entities/Feedback';
+import Carregando from '../../common/Carregando';
+import MensagemErro from '../../common/MensagemErro'
 
 export default function Home() {
-    return (
+    const [feedbacks, setFeedbacks] = useState(null);
+    const [carregando, setCarregando] = useState(true);
+    const [mensagemErro, setMensagemErro] = useState(null);
+
+    useEffect(() => {
+        if (feedbacks === null) {
+            FeedbackService.buscar().then(
+                listaFeedbacks => {
+                    let lista = []
+                    listaFeedbacks.forEach(feedback => {
+                        PessoaFisicaService.buscar(feedback.idAvaliadora).then(
+                            pf => {
+                                let novoFeedback = new Feedback(feedback.id, feedback.comentario, pf.nome)
+                                lista.push(novoFeedback)
+                            }
+                        )
+                        setFeedbacks(lista)
+                        setCarregando(false)
+                    })
+                }
+            ).catch(
+                erro => {
+                    setMensagemErro("Não foi possível exibir os feedbacks.")
+                    setCarregando(false)
+                }
+            )
+        }
+    })
+
+    return <>
+
+        <Carregando aberto={carregando} setAberto={(e) => setCarregando(false)} />
         <body id="mybody">
             <div class="home-img">
                 <img class="img-cover"
@@ -51,7 +87,7 @@ export default function Home() {
 
             <div id="cad-pj" class="row featurette">
                 <div class="col-md-8 order-md-2">
-                    <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2><br/>
+                    <h2 class="featurette-heading2">Reconhecimento <span class="text-muted">para empresas</span></h2><br />
                     <p class="lead2">Empresas podem cadastrar suas vagas em nosso site, divulgando-as para o público feminino, aumentando seu público alvo e diminuindo a desigualdade de gêneros.</p>
                     <p class="lead2">Além desta incrível oportunidade de ter uma plataforma para cadastrar e divulgar suas vagas, as empresas contam com um ambiente no qual podem ser avaliadas.</p>
                     <input id="btn-cad-pj" class="btn btn-outline-danger btn-lg" type="button" value="Cadastre sua Empresa"></input>
@@ -73,40 +109,27 @@ export default function Home() {
 
             <div id="feedbacks" class="row">
 
-                <div class="col-lg-4">
-                    <figure class="snip1192">
-                        <blockquote>"Finalmente pude encontrar um local que reune todas as informações que procuro sobre empresas que se preocupam com seus candidatos.
-                        A TecnoMarias realmente fez um diferencial na minha carreira profissional!"
+                {
+                    mensagemErro && <MensagemErro mensagem={mensagemErro} />
+                }
+                {
+                    feedbacks !== null &&
+                    feedbacks.map(feedback => {
+                        return (
+                            <div class="col-lg-4" key={feedback.id}>
+                                <figure class="snip1192">
+                                    <blockquote>"{feedback.comentario}"
                             </blockquote>
-                        <div class="author">
-                            <img src={fb} alt="sq-sample1" />
-                            <h5>Rafaela Almeida, 42 <span> Gerente de Projetos</span></h5>
-                        </div>
-                    </figure>
-                </div>
-
-                <div class="col-lg-4">
-                    <figure class="snip1192">
-                        <blockquote>Gostaria de agradecer aos instrutores e toda equipe da TecnoMarias, sem eles eu jamais conseguiria reunir tantas mulheres competentes e profissionais dedicadas para melhorar meu networking nessa jornada mágica.</blockquote>
-                        <div class="author">
-                            <img src={fb} alt="sq-sample24" />
-                            <h5>Beatriz Silvestre, 36<span> Professora de Física</span></h5>
-                        </div>
-                    </figure>
-                </div>
-
-                <div class="col-lg-4">
-                    <figure class="snip1192">
-                        <blockquote>Com o networking proporcionado pela plataforma da TecnoMarias eu consegui realizar um sólido networking, pesquisar várias vagas de emprego e conseguir minha vaga de diretora em uma grande empresa de atuação internacional.
-                            </blockquote>
-                        <div class="author">
-                            <img src={fb} alt="sq-sample29" />
-                            <h5>Antonieta Almeida, 22<span> Diretora de TI</span></h5>
-                        </div>
-                    </figure>
-                </div>
-
+                                    <div class="author">
+                                        <img src={fb} alt="sq-sample1" />
+                                        <h5>{feedback.nomeAvaliadora} <span> Gerente de Projetos</span></h5>
+                                    </div>
+                                </figure>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </body>
-    )
+    </>
 }

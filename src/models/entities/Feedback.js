@@ -1,7 +1,7 @@
-export class Feedback {
-    constructor(id, comentario, idPessoa) {
+export default class Feedback {
+    constructor(id, comentario, nomeAvaliadora) {
         this.id = id;
         this.comentario = comentario;
-        this.idPessoa = idPessoa;
+        this.nomeAvaliadora = nomeAvaliadora;
     }
 }
