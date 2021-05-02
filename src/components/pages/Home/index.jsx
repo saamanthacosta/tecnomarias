@@ -7,6 +7,9 @@ import background_img from "../../../assets/imagens/background-img.PNG";
 import cad_pf from "../../../assets/imagens/mulheres.png";
 import cad_pj from "../../../assets/imagens/empresa.png";
 import fb from "../../../assets/imagens/fb.png";
+import agil from "../../../assets/imagens/agil.png";
+import net from "../../../assets/imagens/net.png";
+import rocket from "../../../assets/imagens/rocket.png";
 
 export default function Home() {
     return (
@@ -77,19 +80,19 @@ export default function Home() {
                 <section class="columns">
 
                     <div class="column">
-                        <img class="img-cols" src={fb}/>
+                        <img class="img-cols" src={net}/>
                         <h2>Netwoking</h2>
                         <p class="cols">Compartilhe seu agregador de links com suas redes sociais, portfolios, projetos pessoais, curriculos, entre outros itens para realizar a sua divulgação profissional e assim amplie suas possibilidades no mercado.</p>
                     </div>
 
                     <div class="column">
-                        <img class="img-cols" src={fb}/>
+                        <img class="img-cols" src={rocket}/>
                         <h2>Vagas</h2>
-                        <p class="cols">Encontre vagas em empresas que dão voz as mulheres, contribuindo para o seu desenvolvimento pessoal e profissional em um ambiente saudável que trará diversos ganhos para ambas as partes.</p>
+                        <p class="cols">Decole com vagas em empresas que dão voz as mulheres, contribuindo para o seu desenvolvimento pessoal e profissional em um ambiente saudável que trará diversos ganhos para ambas as partes.</p>
                     </div>
 
                     <div class="column">
-                        <img class="img-cols" src={fb}/>
+                        <img class="img-cols" src={agil}/>
                         <h2>Agilidade</h2>
                         <p class="cols">Agilidade para empresas e para mulheres que buscam se conectar, cadastros simples e sem burocracia para ambas as partes aproveitarem o máximo de poder da plataforma oferecida pela TecnoMarias. ❤</p>
                     </div>
