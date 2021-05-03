@@ -23,9 +23,9 @@ import ExibirVaga from "./pages/Vagas/Exibir";
 const RotasComCabecalhoERodape = () => (
   <>
     <Header />
-    <Page>
       <Switch>
         <Route path={routes.HOME} exact component={Home} />
+    <Page>
         <Route path={routes.EXIBIR_PF + ':id'} component={ExibirPF} />
         <Route path={routes.EXIBIR_PJ + ':id'} component={ExibirPJ} />
         <Route path={routes.EXIBIR_VAGA + ':id'} component={ExibirVaga} />
@@ -41,9 +41,9 @@ const RotasComCabecalhoERodape = () => (
           <Route path={routes.CADASTRAR_PJ} component={CadastrarPJ} />
           <Route path={routes.EDITAR_PJ + ':id'} component={EditarPJ} />
         </ValidacoesCadastro.Provider>
+    </Page>
       </Switch>
 
-    </Page>
     <Rodape />
   </>
 )
